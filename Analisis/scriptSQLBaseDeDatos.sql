@@ -41,7 +41,6 @@ CREATE TABLE IF NOT EXISTS `escuela`.`Temas` (
   `contenido` VARCHAR(45) NULL COMMENT '',
   `usuario` INT NOT NULL COMMENT '',
   `estado` ENUM('Eliminado', 'Activo') NULL COMMENT '',
-  `Temascol` VARCHAR(45) NULL COMMENT '',
   PRIMARY KEY (`idTema`)  COMMENT '',
   INDEX `fk_Temas_Usuarios_idx` (`usuario` ASC)  COMMENT '',
   CONSTRAINT `fk_Temas_Usuarios`
@@ -76,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `escuela`.`Mensajes` (
   `idMensaje` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `emisor` INT NOT NULL COMMENT '',
   `reseptor` INT NOT NULL COMMENT '',
-  `fecha` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
+  `fecha` TIMESTAMP NULL default current_timestamp COMMENT '',
   `estado` ENUM('Eliminado', 'Activo') NULL COMMENT '',
   PRIMARY KEY (`idMensaje`)  COMMENT '',
   INDEX `fk_Mensajes_Usuarios1_idx` (`emisor` ASC)  COMMENT '',
@@ -95,36 +94,36 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `escuela`.`Respuestas`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `escuela`.`Respuestas` (
-  `idRespuesta` INT NOT NULL AUTO_INCREMENT COMMENT '',
-  `periodo` INT NULL COMMENT '',
-  `respuesta` VARCHAR(45) NULL COMMENT '',
-  PRIMARY KEY (`idRespuesta`)  COMMENT '')
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `escuela`.`Preguntas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `escuela`.`Preguntas` (
   `idPregunta` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `periodo` INT NULL COMMENT '',
-  `pregunta` VARCHAR(45) NULL COMMENT '',
-  `respuesta` INT NOT NULL COMMENT '',
+  `descripcion` VARCHAR(45) NULL COMMENT '',
   `usuario` INT NOT NULL COMMENT '',
   PRIMARY KEY (`idPregunta`)  COMMENT '',
-  INDEX `fk_Preguntas_Respuestas1_idx` (`respuesta` ASC)  COMMENT '',
   INDEX `fk_Preguntas_Usuarios1_idx` (`usuario` ASC)  COMMENT '',
-  CONSTRAINT `fk_Preguntas_Respuestas1`
-    FOREIGN KEY (`respuesta`)
-    REFERENCES `escuela`.`Respuestas` (`idRespuesta`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_Preguntas_Usuarios1`
     FOREIGN KEY (`usuario`)
     REFERENCES `escuela`.`Usuarios` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `escuela`.`Respuestas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `escuela`.`Respuestas` (
+  `idRespuesta` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `respuesta` VARCHAR(45) NULL COMMENT '',
+  `pregunta` INT NOT NULL COMMENT '',
+  `estado` ENUM('correcta', 'incorrecta') NULL COMMENT '',
+  PRIMARY KEY (`idRespuesta`)  COMMENT '',
+  INDEX `fk_Respuestas_Preguntas1_idx` (`pregunta` ASC)  COMMENT '',
+  CONSTRAINT `fk_Respuestas_Preguntas1`
+    FOREIGN KEY (`pregunta`)
+    REFERENCES `escuela`.`Preguntas` (`idPregunta`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

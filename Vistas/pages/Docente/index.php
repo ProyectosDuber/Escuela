@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+<?php include_once '../../../Modelos/Tema.php'; ?>
 <html lang="es">
 
 <head>
@@ -297,6 +298,16 @@
                                 <li>
                                     <a href="#">Periodo 1 <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
+                                    	<?php 
+									
+					$temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 1);		
+                                        
+                                        foreach ($temas as $tema){
+                                            echo "<li>";
+                                                echo '<a href="verTema.php?idTema='.$tema['idTema'].'">'.$tema['titulo'].'</a>';
+                                            echo "</li>";
+                                        }
+                                        ?>
                                         <li>
                                             <a href="agregarTema.php?periodo=1">Agregar Tema</a>
                                         </li>
@@ -308,6 +319,16 @@
                                 <li>
                                     <a href="#">Periodo 2 <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
+                                        <?php 
+									
+					$temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 2);		
+                                        
+                                        foreach ($temas as $tema){
+                                            echo "<li>";
+                                                echo '<a href="verTema.php?idTema='.$tema['idTema'].'">'.$tema['titulo'].'</a>';
+                                            echo "</li>";
+                                        }
+                                        ?>
                                        <li>
                                             <a href="agregarTema.php?periodo=2">Agregar Tema</a>
                                         </li>
@@ -318,6 +339,16 @@
                                 <li>
                                     <a href="#">Periodo 3 <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
+                                        <?php 
+									
+					$temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 3);		
+                                        
+                                        foreach ($temas as $tema){
+                                            echo "<li>";
+                                                echo '<a href="verTema.php?idTema='.$tema['idTema'].'">'.$tema['titulo'].'</a>';
+                                            echo "</li>";
+                                        }
+                                        ?>
                                         <li>
                                           <a href="agregarTema.php?periodo=3">Agregar Tema</a>
                                         </li>
@@ -328,6 +359,16 @@
                                 <li>
                                     <a href="#">Periodo 4 <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
+                                        <?php 
+									
+					$temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 4);		
+                                        
+                                        foreach ($temas as $tema){
+                                            echo "<li>";
+                                                echo '<a href="verTema.php?idTema='.$tema['idTema'].'">'.$tema['titulo'].'</a>';
+                                            echo "</li>";
+                                        }
+                                        ?>
                                         <li>
                                            <a href="agregarTema.php?periodo=4">Agregar Tema</a>
                                         </li>
