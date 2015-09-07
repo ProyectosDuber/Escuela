@@ -478,7 +478,9 @@ foreach ($temas as $tema) {
                                     </div>
                                    -->
                                    
+                                  
                                 <?php
+                        
                                 $preguntas = Pregunta::preguntasPeriodo($_SESSION['idUsuario'], $_GET['periodo']);
                                 
                                 foreach ($preguntas as $pregunta){
@@ -489,23 +491,32 @@ foreach ($temas as $tema) {
                                             $respuestas = Respuesta::respuestasPregunta($pregunta['idPregunta']);
                                          
                                             foreach ($respuestas as $respuesta){
+                                              
                                             
                                                 if($respuesta['estado']=="incorrecta"){
                                                     echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$pregunta['idPregunta'].'" value="'.$respuesta['idRespuesta'].'"><a href="#">'.$respuesta['respuesta'].'</a><br>';
                                                 }else{
                                                      echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$pregunta['idPregunta'].'" value="'.$respuesta['idRespuesta'].'" checked="true"><label for="radio'.$respuesta['idRespuesta'].'">'.$respuesta['respuesta'].'</label><br>';
                                                 }
+                                             
                                                 
-                                               
+                                                
                                             }
-                                            
-                                            echo '</div>';
+                                            echo '<br>';
+                                            echo '<form  method="POST" action="../../../Controladores/controladorDeRespuestas.php?'.$pregunta['idPregunta'].'">';
+                                                echo '<input type="text" name="respuesta" required id="respuesta" placeholder="Escriba aqui su nueva respuesta" class="form-control"><br> <br>';
+                                                echo ' <button class="btn btn-default" type="submit">Agregar Respuesta</button>';
+                                            echo ' </form> ';
+                                       echo '</div>';
                                     echo '</div>';
                                 }
                                 
                                 ?>   
-                                   
-                                   
+                                   <br>
+                                 <form  method="POST" action="../../../Controladores/controladorDeRespuestas.php?pregunta=1">
+                                     <input class="form-control" type="text" name="respuesta" id="respuesta" required placeholder="Escriba aqui su nueva pregunta">
+                                     <br>  <button class="btn btn-default" type="submit">Agregar Respuesta</button>
+                                   </form>        
 
 
 
