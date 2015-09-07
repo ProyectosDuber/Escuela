@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+
+<html lang="es">
 
 <head>
 
@@ -51,7 +51,7 @@
                                     <input class="form-control" placeholder="Contraseña" name="password" id="password" type="password"  required>
                                 </div>
                                 <div class="checkbox">
-                                    <label id="respuesta" style="color: red">Usuario o contraseña incorrectos</label>
+                                    <label id="respuesta" style="color: red"></label>
                                 </div>
                                 
                                 <!-- Change this to a button or input when using this as a form -->
@@ -75,10 +75,14 @@
     function prosesar(datos){
         if(datos==false){
             $("#respuesta").replaceWith(" <label id='respuesta' style='color: red'>Usuario o contraseña incorrectos</label>");
-        }else{
+        }else if(datos =="Docente"){
              $("#respuesta").hide();
              
-             $(location).attr('href',"forms.html");
+             $(location).attr('href',"./Docente/");
+        }else if(datos =="Estudiante"){
+             $("#respuesta").hide();
+             
+             $(location).attr('href',"./Estudiante/");
         }
         
     }
@@ -88,6 +92,7 @@
     }
     
     </script>
+   
     <!-- jQuery -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 

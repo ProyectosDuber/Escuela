@@ -113,12 +113,24 @@ class usuarios_controller{
             
             try {
                 
-             $respuesta = Usuario::buscar("SELECT * FROM Usuarios where username=? and password=?",array($_POST['username'],$_POST['password']) );
+             $respuesta = Usuario::buscar("SELECT * FROM Usuarios where username=? and password=? and estado=?",array($_POST['username'],$_POST['password'],"Activo") );
              
                 
              if($respuesta!=false){
-                
-                 echo  TRUE;
+                 session_start();
+                 
+                 foreach ($respuesta as $column=>$valor){
+                     
+                     $_SESSION[$column]=$valor;
+                 }
+                 
+                 
+               if($respuesta['tipo']=="Docente"){
+                   echo "Docente";
+               }  else {
+                   echo "Estudiante";
+               }  
+             
                
              }else{
                  echo false;
