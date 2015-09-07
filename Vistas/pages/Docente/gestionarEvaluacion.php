@@ -496,17 +496,17 @@ foreach ($temas as $tema) {
                                                 echo '<tr>';
                                                 
                                                 if($respuesta['estado']=="incorrecta"){
-                                                    echo '<td style="width: 96.3%" >';
+                                                    echo '<td style="width: 96.8%" >';
                                                     echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$pregunta['idPregunta'].'" value="'.$respuesta['idRespuesta'].'"><a > '.$respuesta['respuesta'].'</a><br>';
-                                                        echo '</td  >';
-                                                      echo '<td><a>De</a><a> Mo</a>';
+                                                        echo '</td >';
+                                                      echo '<td><a href="#"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a href="#"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
                                                      echo '</td>';
                                                 }else{
-                                                    echo '<td style="width: 96.3%">';
+                                                    echo '<td style="width: 96.8%">';
                                                      echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$pregunta['idPregunta'].'" value="'.$respuesta['idRespuesta'].'" checked="true"><a > '.$respuesta['respuesta'].'</a><br>';
                                                      echo '</td>';
                                                    
-                                                      echo '<td><a>De</a><a> Mo</a>';
+                                                      echo '<td><a href="#"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a href="#"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
                                                      echo '</td>';
                                                      
                                                      }
@@ -526,6 +526,7 @@ foreach ($temas as $tema) {
                                 }
                                 
                                 ?>   
+                               
                                    <br>
                                  <form  method="POST" action="../../../Controladores/controladorDeRespuestas.php?pregunta=1">
                                      <input class="form-control" type="text" name="respuesta" id="respuesta" required placeholder="Escriba aqui su nueva pregunta">
