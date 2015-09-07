@@ -3,7 +3,7 @@
         public $isConnected;
         protected $datab;
         private $username = "root";
-        private $password = "";
+        private $password = "mysql";
         private $host = "localhost";
         private $dbname = "Escuela";
 
