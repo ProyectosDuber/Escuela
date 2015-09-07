@@ -1,7 +1,7 @@
 <?php
 
 require_once (__DIR__.'/db_abstract_class.php');
-class clUsuario extends db_abstract_class {
+class Usuario extends db_abstract_class {
     
     private $idUsuario;
     private $username;
@@ -14,7 +14,7 @@ class clUsuario extends db_abstract_class {
     function __construct($datos = array()) {
         parent::__construct();
         
-            if(count($datos) >1){
+            if(count($datos) >0){
                 foreach ( $datos as $columna =>$dato ){
                     $this->$columna = $dato;
                 }
@@ -31,7 +31,63 @@ class clUsuario extends db_abstract_class {
         
     }   
 
-   
+    function getIdUsuario() {
+        return $this->idUsuario;
+    }
+
+    function getUsername() {
+        return $this->username;
+    }
+
+    function getPassword() {
+        return $this->password;
+    }
+
+    function getTipo() {
+        return $this->tipo;
+    }
+
+    function getNombres() {
+        return $this->nombres;
+    }
+
+    function getApellidos() {
+        return $this->apellidos;
+    }
+
+    function getDocumento() {
+        return $this->documento;
+    }
+
+    function setIdUsuario($idUsuario) {
+        $this->idUsuario = $idUsuario;
+    }
+
+    function setUsername($username) {
+        $this->username = $username;
+    }
+
+    function setPassword($password) {
+        $this->password = $password;
+    }
+
+    function setTipo($tipo) {
+        $this->tipo = $tipo;
+    }
+
+    function setNombres($nombres) {
+        $this->nombres = $nombres;
+    }
+
+    function setApellidos($apellidos) {
+        $this->apellidos = $apellidos;
+    }
+
+    function setDocumento($documento) {
+        $this->documento = $documento;
+    }
+
+    
 
             
     
@@ -64,13 +120,18 @@ class clUsuario extends db_abstract_class {
     }
 
     public static function buscar($query,$parametros = array()) {
-        $usuario = new clUsuario();
+        $usuario = new Usuario();
         $array = $usuario->getRow($query, $parametros);
-        var_dump($array);
+  
+        return $array;
         
     }
     public static function buscarForId($id) {
-   
+        $usuario = new Usuario();
+        
+       $array = $usuario->getRow("SELECT * FROM Usuarios where idUsuario=?", array($id));
+        
+        return $array ;
         
     }
 

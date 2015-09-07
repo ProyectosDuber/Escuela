@@ -29,7 +29,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <script src="../js/jquery.js"></script>
 </head>
 
 <body>
@@ -42,22 +42,20 @@
                         <h3 class="panel-title">&nbsp;</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+                        <form id="login"action="../../Controladores/controladorDeUsuario.php?action=Iniciar_sesion" method="POST">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Usuario" name="email" type="email" autofocus>
+                                    <input  class="form-control" placeholder="Usuario" name="username" id="username" type="text" autofocus required>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Contraseña" name="password" type="password" value="">
+                                    <input class="form-control" placeholder="Contraseña" name="password" id="password" type="password"  required>
                                 </div>
                                 <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">
-                                        Recuerdame
-                                    </label>
+                                    <label id="respuesta" style="color: red">Usuario o contraseña incorrectos</label>
                                 </div>
+                                
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="index.html" class="btn btn-lg btn-success btn-block">Inicar Sesión</a>
+                                <button  class="btn btn-lg btn-success btn-block" type="submit">Iniciar Sesión</button>
                             </fieldset>
                         </form>
                     </div>
@@ -65,7 +63,31 @@
             </div>
         </div>
     </div>
-
+   
+    <script>
+     $("#respuesta").hide();
+     
+     $("#login").submit(function (){
+         var datos = $(this).serialize();
+         $.post("../../Controladores/controladorDeUsuario.php?action=Iniciar_sesion",datos,prosesar).error(pError);
+         return false;
+     });
+    function prosesar(datos){
+        if(datos==false){
+            $("#respuesta").replaceWith(" <label id='respuesta' style='color: red'>Usuario o contraseña incorrectos</label>");
+        }else{
+             $("#respuesta").hide();
+             
+             $(location).attr('href',"forms.html");
+        }
+        
+    }
+    
+    function pError(){
+        $("#respuesta").replaceWith(" <label id='respuesta' style='color: red'>Upps !! error inesperado intentalo de nuevo</label>");
+    }
+    
+    </script>
     <!-- jQuery -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -77,7 +99,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
+   
 </body>
 
 </html>

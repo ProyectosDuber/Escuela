@@ -1,8 +1,5 @@
 <?php
-require_once '../Modelo/db_abstract_class.php';
-require_once '../Modelo/clUsuario.php';
-require_once '../Modelo/clFavorito.php';
-require_once '../Modelo/categoria.php';
+require_once '../Modelos/Usuario.php';
 if(!empty($_GET['action'])){
 	usuarios_controller::main($_GET['action']);
 }
@@ -18,6 +15,8 @@ class usuarios_controller{
 			usuarios_controller::buscarID(1);
 		}else if($action == "buscar"){
                     usuarios_controller::buscar();
+                }else if($action == "Iniciar_sesion"){
+                    usuarios_controller::IniciarSesion();
                 }
 	}
 	
@@ -110,6 +109,25 @@ class usuarios_controller{
 			  header("Location: ../Vista/login.php?respuesta=error");
 		}
 	}
+        public static function IniciarSesion(){
+            
+            try {
+                
+             $respuesta = Usuario::buscar("SELECT * FROM Usuarios where username=? and password=?",array($_POST['username'],$_POST['password']) );
+             
+                
+             if($respuesta!=false){
+                
+                 echo  TRUE;
+               
+             }else{
+                 echo false;
+             }
+            } catch (Exception $ex) {
+                echo FALSE;
+            }
+            
+        }
 	
 }
 ?>
