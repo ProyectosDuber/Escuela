@@ -519,7 +519,7 @@ foreach ($temas as $tema) {
                                             echo '<br>';
                                             echo '<form  method="POST" action="../../../Controladores/controladorDeRespuestas.php?'.$pregunta['idPregunta'].'">';
                                                 echo '<input type="text" name="respuesta" required id="respuesta" placeholder="Escriba aqui su nueva respuesta" class="form-control"><br> <br>';
-                                                echo ' <button class="btn btn-default" type="submit">Agregar Respuesta</button>';
+                                                echo ' <button class="btn btn-default" type="submit">Agregar respuesta</button>';
                                             echo ' </form> ';
                                        echo '</div>';
                                     echo '</div>';
@@ -529,7 +529,7 @@ foreach ($temas as $tema) {
                                    <br>
                                  <form  method="POST" action="../../../Controladores/controladorDeRespuestas.php?pregunta=1">
                                      <input class="form-control" type="text" name="respuesta" id="respuesta" required placeholder="Escriba aqui su nueva pregunta">
-                                     <br>  <button class="btn btn-default" type="submit">Agregar Respuesta</button>
+                                     <br>  <button class="btn btn-default" type="submit">Agregar pregunta</button>
                                    </form>        
 
 
