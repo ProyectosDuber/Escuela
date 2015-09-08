@@ -85,8 +85,11 @@ class Respuesta extends db_abstract_class {
         $respuesta2->updateRow("Update respuestas  set estado = 'correcta' where idRespuesta=? ", array($respuestaACamviar));
     }
 
-    protected function eliminar() {
+    public function eliminar() {
+   
+    $this->deleteRow("DELETE FROM Respuestas where idRespuesta=?",array($this->idRespuesta));
         
+
     }
 
     public function insertar() {

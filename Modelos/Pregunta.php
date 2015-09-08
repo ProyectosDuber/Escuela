@@ -65,7 +65,7 @@ class Pregunta extends db_abstract_class {
 
             
     
-    protected function editar() {
+    public  function editar() {
         $query = "UPDATE Usuarios SET username=?,password=? where idUsuario=?";
        $params = array(
        $this->username,
@@ -77,8 +77,10 @@ class Pregunta extends db_abstract_class {
             $this->Disconnect();
     }
 
-    protected function eliminar() {
+    public function eliminar() {
         
+        $this->deleteRow("DELETE FROM Preguntas where idPregunta=?",array($this->idPregunta));
+        return true;
     }
 
     public function insertar() {

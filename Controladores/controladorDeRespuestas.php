@@ -1,23 +1,23 @@
 <?php
 require_once '../Modelos/Respuesta.php';
-require_once '../Modelos/Pregunta.php';
+
 if(!empty($_GET['action'])){
-    preguntas_controller::main($_GET['action']);
+    respuestas_controller::main($_GET['action']);
 }
 
-class preguntas_controller{
+class respuestas_controller{
 	
 	static function main($action){
 		if ($action == "crear"){
-			preguntas_controller::crear();
+			respuestas_controller::crear();
 		}else if ($action == "editar"){
-                    preguntas_controller::editar();
+                    respuestas_controller::editar();
 		}else if ($action == "delete"){
-			preguntas_controller::delete();
+			respuestas_controller::delete();
 		}else if($action == "buscar"){
-                    preguntas_controller::buscar();
-                }else if($action == "camviarEstado"){
-                    preguntas_controller::camviarEstado();
+                    respuestas_controller::buscar();
+        }else if($action == "camviarEstado"){
+                    respuestas_controller::camviarEstado();
                 }
 	}
 	
@@ -40,12 +40,11 @@ class preguntas_controller{
 //		} catch (Exception $e) {
 //			header("Location: ../frmNewUser.php?respuesta=error");
 //		}
-	}
 
-
-	public static  function delete(){
+}
+    public static  function delete(){
 		try {
-			$respuesta = new Pregunta(array('idPregunta'=>$_GET['idPregunta']));
+			$respuesta = new Respuesta(array('idRespuesta'=>$_GET['idRespuesta']));
     		$respuesta->eliminar();
     		header("Location: ../Vistas/pages/Docente/gestionarEvaluacion.php?respuesta=eliminado&periodo=".$_GET['periodo']);
 			
@@ -53,7 +52,8 @@ class preguntas_controller{
 		header("Location: ../Vistas/pages/Docente/gestionarEvaluacion.php?respuesta=error&periodo=".$_GET['periodo']);
 		}
     		
-    } 
+    }        
+	
 	static public function camviarEstado (){
 		try {
                     

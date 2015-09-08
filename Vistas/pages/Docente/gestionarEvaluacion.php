@@ -479,14 +479,16 @@ foreach ($temas as $tema) {
                                    -->
                                    
                               <!--        <td style="width: 50%"></td> -->
-                                       
+                        
+                        <a href="../../../Controladores/controladorDePreguntas.php?action=delete"></a>               
                                 <?php
                         
                                 $preguntas = Pregunta::preguntasPeriodo($_SESSION['idUsuario'], $_GET['periodo']);
                                 
                                 foreach ($preguntas as $pregunta){
                                     echo '<div class="group">';
-                                        echo '<h3>'.$pregunta['descripcion'].'</h3>';
+                                        echo '<h3>'.$pregunta['descripcion'].' &nbsp;&nbsp; <a class="eliminar" href="../../../Controladores/controladorDePreguntas.php?action=delete&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a class="actualizar" href="../../../Controladores/controladorDePreguntas.php?action=update&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
+                                                echo "</h3>";
                                             echo '<div >';
                                             
                                             $respuestas = Respuesta::respuestasPregunta($pregunta['idPregunta']);
@@ -498,15 +500,15 @@ foreach ($temas as $tema) {
                                                 if($respuesta['estado']=="incorrecta"){
                                                     echo '<td style="width: 96.8%" >';
                                                     echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$pregunta['idPregunta'].'" value="'.$respuesta['idRespuesta'].'"><a > '.$respuesta['respuesta'].'</a><br>';
-                                                        echo '</td >';
-                                                      echo '<td><a href="#"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a href="#"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
-                                                     echo '</td>';
+                                                    echo '</td >';
+                                                    echo '<td>< class="eliminar" a href="../../../Controladores/controladorDeRespuestas.php?periodo='.$_GET['periodo'].'&action=delete&idRespuesta='.$respuesta["idRespuesta"].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a  class="actualizar" href="../../../Controladores/controladorDeRespuestas.php?periodo='.$_GET['periodo'].'&action=actualizar&idRespuesta='.$respuesta["idRespuesta"].'"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
+                                                    echo '</td>';
                                                 }else{
                                                     echo '<td style="width: 96.8%">';
                                                      echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$pregunta['idPregunta'].'" value="'.$respuesta['idRespuesta'].'" checked="true"><a > '.$respuesta['respuesta'].'</a><br>';
                                                      echo '</td>';
                                                    
-                                                      echo '<td><a href="#"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a href="#"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
+                                                      echo '<td><a class="eliminar" href="../../../Controladores/controladorDeRespuestas.php?periodo='.$_GET['periodo'].'&action=delete&idRespuesta='.$respuesta["idRespuesta"].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a class="actualizar" href="#"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
                                                      echo '</td>';
                                                      
                                                      }
@@ -566,7 +568,21 @@ foreach ($temas as $tema) {
 
         <!-- Custom Theme JavaScript -->
         <script src="../../dist/js/sb-admin-2.js"></script>
-        
+        <script >
+            $(".eliminar").click(function(){
+              
+                var respuesta = confirm("Desea eliminar el registro");
+                if( respuesta){
+             
+                        window.location.href = $(this).attr("href");
+                }else{
+ 
+                }
+               return false;
+
+            });    
+
+        </script>
         <script>
         
         $(".radios").click(function (){
