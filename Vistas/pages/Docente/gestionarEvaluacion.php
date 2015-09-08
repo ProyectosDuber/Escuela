@@ -487,7 +487,7 @@ foreach ($temas as $tema) {
                                 
                                 foreach ($preguntas as $pregunta){
                                     echo '<div class="group">';
-                                        echo '<h3>'.$pregunta['descripcion'].' &nbsp;&nbsp; <a class="eliminar" href="../../../Controladores/controladorDePreguntas.php?action=delete&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a class="actualizar" href="../../../Controladores/controladorDePreguntas.php?action=update&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
+                                        echo '<h3>'.$pregunta['descripcion'].' &nbsp;&nbsp; <a class="eliminar" href="../../../Controladores/controladorDePreguntas.php?action=delete&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a  class="actualizar" href="../../../Controladores/controladorDePreguntas.php?action=update&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
                                                 echo "</h3>";
                                             echo '<div >';
                                             
@@ -500,18 +500,17 @@ foreach ($temas as $tema) {
                                                 if($respuesta['estado']=="incorrecta"){
                                                     echo '<td style="width: 96.8%" >';
                                                     echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$pregunta['idPregunta'].'" value="'.$respuesta['idRespuesta'].'"><a > '.$respuesta['respuesta'].'</a><br>';
-                                                    echo '</td >';
-                                                    echo '<td>< class="eliminar" a href="../../../Controladores/controladorDeRespuestas.php?periodo='.$_GET['periodo'].'&action=delete&idRespuesta='.$respuesta["idRespuesta"].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a  class="actualizar" href="../../../Controladores/controladorDeRespuestas.php?periodo='.$_GET['periodo'].'&action=actualizar&idRespuesta='.$respuesta["idRespuesta"].'"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
-                                                    echo '</td>';
+                                                   
                                                 }else{
                                                     echo '<td style="width: 96.8%">';
                                                      echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$pregunta['idPregunta'].'" value="'.$respuesta['idRespuesta'].'" checked="true"><a > '.$respuesta['respuesta'].'</a><br>';
-                                                     echo '</td>';
-                                                   
-                                                      echo '<td><a class="eliminar" href="../../../Controladores/controladorDeRespuestas.php?periodo='.$_GET['periodo'].'&action=delete&idRespuesta='.$respuesta["idRespuesta"].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a class="actualizar" href="#"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
-                                                     echo '</td>';
+                                                     
                                                      
                                                      }
+
+                                                 echo '</td >';
+                                                    echo '<td><a class="eliminar" a href="../../../Controladores/controladorDeRespuestas.php?periodo='.$_GET['periodo'].'&action=delete&idRespuesta='.$respuesta["idRespuesta"].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a  class="actualizar" href="../../../Controladores/controladorDeRespuestas.php?periodo='.$_GET['periodo'].'&action=actualizar&idRespuesta='.$respuesta["idRespuesta"].'"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
+                                                    echo '</td>';     
                                              
                                                 echo '</tr>';
                                                 
@@ -583,6 +582,27 @@ foreach ($temas as $tema) {
             });    
 
         </script>
+  <script >
+            $(".actualizar").click(function(){
+
+                var respuesta = prompt("Porfavor ingrese la actualizacion");
+                if( respuesta==null){
+             
+                        
+                       // window.location.href = $(this).attr("href");
+                }else if(respuesta==""){
+                        
+                }else{
+                        console.log( $(this).attr("href")+"&texto="+respuesta);
+                      //  window.location.href = $(this).attr("href")+"&texto="+respuesta;
+                }
+               return false;
+
+            });    
+
+        </script>
+
+
         <script>
         
         $(".radios").click(function (){
@@ -594,6 +614,9 @@ foreach ($temas as $tema) {
            
            
         });
+
+
+
         
        function prosesarDatos(datos){
           

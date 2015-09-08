@@ -4,9 +4,8 @@ require_once (__DIR__.'/db_abstract_class.php');
 class Respuesta extends db_abstract_class {
     
     private $idRespuesta;
-    private $periodo;
+    private $respuesta;
     private $pregunta;
-   
     private $estado;
    
     
@@ -33,8 +32,8 @@ class Respuesta extends db_abstract_class {
         return $this->idRespuesta;
     }
 
-    function getPeriodo() {
-        return $this->periodo;
+    function getRespuesta() {
+        return $this->respuesta;
     }
 
     function getPregunta() {
@@ -49,8 +48,8 @@ class Respuesta extends db_abstract_class {
         $this->idRespuesta = $idRespuesta;
     }
 
-    function setPeriodo($periodo) {
-        $this->periodo = $periodo;
+    function setRespuesta($respuesta) {
+        $this->respuesta = $respuesta;
     }
 
     function setPregunta($pregunta) {
@@ -67,14 +66,13 @@ class Respuesta extends db_abstract_class {
             
     
     protected function editar() {
-        $query = "UPDATE Usuarios SET username=?,password=? where idUsuario=?";
+        $query = "UPDATE Respuestas SET respuesta=? where idRespuesta=?";
        $params = array(
-       $this->username,
-       $this->password,
-       $this->idUsuario    
+       $this->respuesta,  
+       $this->idRespuesta    
        );
         
-        parent::updateRow($query, $params);
+        $this::updateRow($query, $params);
             $this->Disconnect();
     }
     public static function camviarEstado($pregunta,$respuestaACamviar){
