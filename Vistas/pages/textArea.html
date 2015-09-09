@@ -1,24 +1,38 @@
+
+<script src="../js/jquery.js"></script>
 <div id="sample">
   <script type="text/javascript" src="../js/estiloTextAreas.js"></script> <script type="text/javascript">
+
 //<![CDATA[
         bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
   //]]>
+  
   </script>
   <h4>
     First Textarea
   </h4>
-  <textarea name="area1" cols="40">
-</textarea><br />
+  <textarea id="mio" name="area1" cols="40">
+</textarea ><br />
   <h4>
     Second Textarea
   </h4>
   <textarea name="area2" style="width: 100%;">
        Some Initial Content was in this textarea
 </textarea><br />
+<button id="boton" type="button">ver</button>
   <h4>
     Third Textarea
   </h4>
   <textarea name="area3" style="width: 300px; height: 100px;">
        HTML content default in textarea
 </textarea>
+
+<script type="text/javascript">
+  $("#boton").click(function (){
+     var niEd = nicEditors.findEditor('mio');
+     alert(niEd.getContent())
+  });
+ 
+
+</script>
 </div>
