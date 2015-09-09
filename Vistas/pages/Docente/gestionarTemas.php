@@ -487,17 +487,18 @@ foreach ($temas as $tema) {
                         
                                 $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 4);
                                 
-                                foreach ($temas as $pregunta){
+                                foreach ($temas as $tema){
                                     echo '<div class="group">';
-                                        echo '<h3 id="'.$pregunta['idPregunta'].'">
-                                        <strong id="'.$pregunta['idPregunta'].'">'.$pregunta['descripcion'].'</strong>
-                                        &nbsp;&nbsp; 
-                                        <a class="eliminar" href="../../../Controladores/controladorDePreguntas.php?action=delete&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'">
-                                        <img style="width:20px; height:20px" src="../../Imagenes/delete.ico" />
+                                        echo '<h3 id="'.$tema['idPregunta'].'">
+                                        <strong id="'.$tema['idPregunta'].'">'.$tema['descripcion'].'</strong>
+                                            &nbsp;&nbsp; 
+                                        <a class="eliminar" href="../../../Controladores/controladorDePreguntas.php?action=delete&idPregunta='.$tema["idPregunta"].'&periodo='.$_GET['periodo'].'">
+                                            <img style="width:20px; height:20px" src="../../Imagenes/delete.ico" />
                                         </a>
-                                        <a  class="actualizar" href="../../../Controladores/controladorDePreguntas.php?action=actualizar&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'">
-                                        <img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
-                                                echo "</h3>";
+                                        <a  class="actualizar" href="../../../Controladores/controladorDePreguntas.php?action=actualizar&idPregunta='.$tema["idPregunta"].'&periodo='.$_GET['periodo'].'">
+                                             <img style="width:20px; height:20px" src="../../Imagenes/update.ico" />
+                                        </a>';
+                                        echo "</h3>";
                                             echo '<div >';
                                             
                                             $respuestas = Respuesta::respuestasPregunta($pregunta['idPregunta']);
@@ -508,7 +509,7 @@ foreach ($temas as $tema) {
                                                 
                                                 if($respuesta['estado']=="incorrecta"){
                                                     echo '<td style="width: 96.8%" >';
-                                                    echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$pregunta['idPregunta'].'" value="'.$respuesta['idRespuesta'].'"><a > '.$respuesta['respuesta'].'</a><br>';
+                                                    echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$tema['idPregunta'].'" value="'.$respuesta['idRespuesta'].'"><a > '.$respuesta['respuesta'].'</a><br>';
                                                    
                                                 }else{
                                                     echo '<td style="width: 96.8%">';
@@ -527,7 +528,7 @@ foreach ($temas as $tema) {
                                           echo '</table>';  
                                             
                                             echo '<br>';
-                                            echo '<form  method="POST" action="../../../Controladores/controladorDeRespuestas.php?pregunta='.$pregunta['idPregunta'].'&action=crear&periodo='.$_GET['periodo'].'">';
+                                            echo '<form  method="POST" action="../../../Controladores/controladorDeRespuestas.php?pregunta='.$tema['idPregunta'].'&action=crear&periodo='.$_GET['periodo'].'">';
                                                 echo '<input  type="text" name="respuesta" required id="respuesta" placeholder="Escriba aqui su nueva respuesta" class="form-control"><br> <br>';
                                                 echo ' <button class="btn btn-default" type="submit">Agregar respuesta</button>';
                                             echo ' </form> ';

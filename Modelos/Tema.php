@@ -9,7 +9,7 @@ class Tema extends db_abstract_class {
     private $contenido;
     private $usuario;
     private $estado;
-    private $documento;
+   
     
     function __construct($datos = array()) {
         parent::__construct();
@@ -54,9 +54,7 @@ class Tema extends db_abstract_class {
         return $this->estado;
     }
 
-    function getDocumento() {
-        return $this->documento;
-    }
+   
 
     function setIdTema($idTema) {
         $this->idTema = $idTema;
@@ -80,10 +78,6 @@ class Tema extends db_abstract_class {
 
     function setEstado($estado) {
         $this->estado = $estado;
-    }
-
-    function setDocumento($documento) {
-        $this->documento = $documento;
     }
 
         
