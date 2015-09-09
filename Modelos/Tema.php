@@ -96,15 +96,20 @@ class Tema extends db_abstract_class {
             $this->Disconnect();
     }
 
-    protected function eliminar() {
-        
+    public function eliminar() {
+        $this->updateRow("UPDATE Temas SET estado=? where idTema=?",array("Eliminado",$this->idTema));  
     }
 
     public function insertar() {
-             $query = "INSERT INTO Usuarios VALUES('NULL',?,?)";
+
+        $this->estado="Activo";
+             $query = "INSERT INTO Temas VALUES('NULL',?,?,?,?,?)";
        $params = array(
-       $this->username,
-       $this->password
+       $this->periodo,
+       $this->titulo,
+       $this->contenido,
+       $this->usuario,
+       $this->estado
       
        );
         

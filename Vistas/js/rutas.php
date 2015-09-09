@@ -1,3 +1,3 @@
 <?php
 
-include '../pages/login.php';
+include '../Imagenes/nicEditIcons-latest.gif';

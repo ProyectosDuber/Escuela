@@ -16,12 +16,14 @@
 
         <script src="../../js/jquery.js"></script>
         <script src="../../js/jquery-ui/jquery-ui.js"></script>
-        
-        
-        
-        
+
+        <!-- Configuracion de text areas -->
+       
+
+
+
         <LINK REL="stylesheet" TYPE="text/css" HREF="../../js/jquery-ui/jquery-ui.css">
-         
+
         <!-- Bootstrap Core CSS -->
         <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -50,8 +52,8 @@
 
         </style>
         <script src="../../js/acordion.js"></script>  
-        <script src="../../js/botones.js"> </script>
-     
+        <script src="../../js/botones.js"></script>
+
     </head>
 
     <body>
@@ -320,14 +322,14 @@
                                         <a href="#">Periodo 1 <span class="fa arrow"></span></a>
                                         <ul class="nav nav-third-level">
                                             <?php
-											/*
-                                            $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 1);
+                                            /*
+                                              $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 1);
 
-                                            foreach ($temas as $tema) {
-                                                echo "<li>";
-                                                echo '<a href="verTema.php?idTema=' . $tema['idTema'] . '">' . $tema['titulo'] . '</a>';
-                                                echo "</li>";
-                                            }*/
+                                              foreach ($temas as $tema) {
+                                              echo "<li>";
+                                              echo '<a href="verTema.php?idTema=' . $tema['idTema'] . '">' . $tema['titulo'] . '</a>';
+                                              echo "</li>";
+                                              } */
                                             ?>
                                             <li>
                                                 <a href="gestionarTemas.php?periodo=1">Gestionar</a>
@@ -341,17 +343,17 @@
                                         <a href="#">Periodo 2 <span class="fa arrow"></span></a>
                                         <ul class="nav nav-third-level">
                                             <?php
-											/*
-                                            $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 2);
+                                            /*
+                                              $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 2);
 
-                                            foreach ($temas as $tema) {
-                                                echo "<li>";
-                                                echo '<a href="verTema.php?idTema=' . $tema['idTema'] . '">' . $tema['titulo'] . '</a>';
-                                                echo "</li>";
-                                            }*/
+                                              foreach ($temas as $tema) {
+                                              echo "<li>";
+                                              echo '<a href="verTema.php?idTema=' . $tema['idTema'] . '">' . $tema['titulo'] . '</a>';
+                                              echo "</li>";
+                                              } */
                                             ?>
                                             <li>
-                                                 <a href="gestionarTemas.php?periodo=2">Gestionar</a>
+                                                <a href="gestionarTemas.php?periodo=2">Gestionar</a>
                                             </li>
                                         </ul>
                                         <!-- /.nav-third-level -->
@@ -360,15 +362,15 @@
                                     <li>
                                         <a href="#">Periodo 3 <span class="fa arrow"></span></a>
                                         <ul class="nav nav-third-level">
-<?php /*
-$temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 3);
+                                            <?php /*
+                                              $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 3);
 
-foreach ($temas as $tema) {
-    echo "<li>";
-    echo '<a href="verTema.php?idTema=' . $tema['idTema'] . '">' . $tema['titulo'] . '</a>';
-    echo "</li>";
-}*/
-?>
+                                              foreach ($temas as $tema) {
+                                              echo "<li>";
+                                              echo '<a href="verTema.php?idTema=' . $tema['idTema'] . '">' . $tema['titulo'] . '</a>';
+                                              echo "</li>";
+                                              } */
+                                            ?>
                                             <li>
                                                 <a href="gestionarTemas.php?periodo=3">Gestionar</a>
                                             </li>
@@ -379,17 +381,17 @@ foreach ($temas as $tema) {
                                     <li>
                                         <a href="#">Periodo 4 <span class="fa arrow"></span></a>
                                         <ul class="nav nav-third-level">
-<?php /*
-$temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 4);
+                                            <?php /*
+                                              $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 4);
 
-foreach ($temas as $tema) {
-    echo "<li>";
-    echo '<a href="verTema.php?idTema=' . $tema['idTema'] . '">' . $tema['titulo'] . '</a>';
-    echo "</li>";
-}*/
-?>
+                                              foreach ($temas as $tema) {
+                                              echo "<li>";
+                                              echo '<a href="verTema.php?idTema=' . $tema['idTema'] . '">' . $tema['titulo'] . '</a>';
+                                              echo "</li>";
+                                              } */
+                                            ?>
                                             <li>
-                                               <a href="gestionarTemas.php?periodo=4">Gestionar</a>
+                                                <a href="gestionarTemas.php?periodo=4">Gestionar</a>
                                             </li>
                                         </ul>
                                         <!-- /.nav-third-level -->
@@ -458,7 +460,7 @@ foreach ($temas as $tema) {
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Gestion de evaluacion periodo <?php echo $_GET['periodo']; ?></h1>
+                        <h1 class="page-header">Gestion de temas periodo <?php echo $_GET['periodo']; ?></h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -468,93 +470,62 @@ foreach ($temas as $tema) {
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <!-- inicio de preguntas -->
-                                
-                                
+
+
                                 <div id="accordion">
-                                <!--  
-                                    <div class="group">
-                                        <h3>Section 1</h3>
-                                        <div>
-                                            <p>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.</p>
+                                    <!--  
+                                        <div class="group">
+                                            <h3>Section 1</h3>
+                                            <div>
+                                                <p>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                   -->
-                                   
-                              <!--        <td style="width: 50%"></td> -->
-                        
-                        <a href="../../../Controladores/controladorDePreguntas.php?action=delete"></a>               
-                                <?php
-                        
-                                $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 4);
-                                
-                                foreach ($temas as $tema){
-                                    echo '<div class="group">';
-                                        echo '<h3 id="'.$tema['idPregunta'].'">
-                                        <strong id="'.$tema['idPregunta'].'">'.$tema['descripcion'].'</strong>
+                                    -->
+
+<!--        <td style="width: 50%"></td> -->
+
+                                    <a href="../../../Controladores/controladorDePreguntas.php?action=delete"></a>               
+                                    <?php
+                                    $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], $_GET['periodo']);
+
+                                    foreach ($temas as $tema) {
+                                        echo '<div class="group">';
+                                        echo '<h3 id="' . $tema['idTema'] . '">
+                                        <strong id="' . $tema['idTema'] . '">' . $tema['titulo'] . '</strong>
                                             &nbsp;&nbsp; 
-                                        <a class="eliminar" href="../../../Controladores/controladorDePreguntas.php?action=delete&idPregunta='.$tema["idPregunta"].'&periodo='.$_GET['periodo'].'">
+                                        <a class="eliminar" href="../../../Controladores/controladorDeTemas.php?action=delete&idTema=' . $tema["idTema"] . '&periodo=' . $_GET['periodo'] . '">
                                             <img style="width:20px; height:20px" src="../../Imagenes/delete.ico" />
                                         </a>
-                                        <a  class="actualizar" href="../../../Controladores/controladorDePreguntas.php?action=actualizar&idPregunta='.$tema["idPregunta"].'&periodo='.$_GET['periodo'].'">
+                                        <a  class="actualizar" href="../../../Controladores/controladorDeTemas.php?action=actualizar&idTema=' . $tema["idTema"] . '&periodo=' . $_GET['periodo'] . '">
                                              <img style="width:20px; height:20px" src="../../Imagenes/update.ico" />
                                         </a>';
                                         echo "</h3>";
-                                            echo '<div >';
-                                            
-                                            $respuestas = Respuesta::respuestasPregunta($pregunta['idPregunta']);
-                                            echo '<table border =1>';
-                                            foreach ($respuestas as $respuesta){
-                                              
-                                                echo '<tr>';
-                                                
-                                                if($respuesta['estado']=="incorrecta"){
-                                                    echo '<td style="width: 96.8%" >';
-                                                    echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$tema['idPregunta'].'" value="'.$respuesta['idRespuesta'].'"><a > '.$respuesta['respuesta'].'</a><br>';
-                                                   
-                                                }else{
-                                                    echo '<td style="width: 96.8%">';
-                                                     echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$pregunta['idPregunta'].'" value="'.$respuesta['idRespuesta'].'" checked="true"><a > '.$respuesta['respuesta'].'</a><br>';
-                                                     
-                                                     
-                                                     }
+                                        echo '<div>';
+                                        echo $tema['contenido'];
 
-                                                 echo '</td >';
-                                                    echo '<td><a class="eliminar" a href="../../../Controladores/controladorDeRespuestas.php?periodo='.$_GET['periodo'].'&action=delete&idRespuesta='.$respuesta["idRespuesta"].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a  class="actualizar" href="../../../Controladores/controladorDeRespuestas.php?periodo='.$_GET['periodo'].'&action=actualizar&idRespuesta='.$respuesta["idRespuesta"].'"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
-                                                    echo '</td>';     
-                                             
-                                                echo '</tr>';
-                                                
-                                            }
-                                          echo '</table>';  
-                                            
-                                            echo '<br>';
-                                            echo '<form  method="POST" action="../../../Controladores/controladorDeRespuestas.php?pregunta='.$tema['idPregunta'].'&action=crear&periodo='.$_GET['periodo'].'">';
-                                                echo '<input  type="text" name="respuesta" required id="respuesta" placeholder="Escriba aqui su nueva respuesta" class="form-control"><br> <br>';
-                                                echo ' <button class="btn btn-default" type="submit">Agregar respuesta</button>';
-                                            echo ' </form> ';
-                                       echo '</div>';
-                                    echo '</div>';
-                                }
-                                
-                                ?>   
-                               
-                                   <br>
-                                   <?php 
+                                        echo '</div>';
+                                        echo '</div>';
+                                    }
+                                    ?>   
 
-                                    echo '<form  method="POST" action="../../../Controladores/controladorDePreguntas.php?action=crear&periodo='.$_GET['periodo'].'">';
-                                   ?>
-                             
-                                     <input class="form-control" type="text" name="descripcion" id="descripcion" required placeholder="Escriba aqui su nueva pregunta">
-                                     <br>  <button class="btn btn-default" type="submit">Agregar pregunta</button>
-                                   </form>        
+                                    <br>
+<?php
+echo '<form  method="POST" action="../../../Controladores/controladorDeTemas.php?action=crear&periodo=' . $_GET['periodo'] . '">';
+?>
+
+                                    <input class="form-control" type="text" name="titulo" id="titulo" required placeholder="Porfavor esbriba aqui un titulo">
+                                    <br>  
+                                    <textarea name="contenido" id="contenido" style="width: 100%;"></textarea>  <br>    
+                                    <button class="btn btn-default" type="submit">Agregar Tema</button>
+                                    </form>        
 
 
 
                                 </div>
-                                
-                               <!-- Final de preguntas -->  
-                                
-                                
+
+                                <!-- Final de preguntas -->  
+
+
                             </div>
                         </div>
                     </div>
@@ -568,10 +539,10 @@ foreach ($temas as $tema) {
         </div>
         <!-- /#wrapper -->
 
-  
+
         <script src="../../js/logOut.js"></script>
         <!-- jQuery -->
- 
+
 
         <!-- Bootstrap Core JavaScript -->
         <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -582,60 +553,69 @@ foreach ($temas as $tema) {
         <!-- Custom Theme JavaScript -->
         <script src="../../dist/js/sb-admin-2.js"></script>
         <script >
-            $(".eliminar").click(function(){
-              
-                var respuesta = confirm("Desea eliminar el registro");
-                if( respuesta){
-             
-                        window.location.href = $(this).attr("href");
-                }else{
- 
-                }
-               return false;
+             $(".eliminar").click(function () {
 
-            });    
+                 var respuesta = confirm("Desea eliminar el registro");
+                 if (respuesta) {
+
+                     window.location.href = $(this).attr("href");
+                 } else {
+
+                 }
+                 return false;
+
+             });
 
         </script>
-  <script >
-            $(".actualizar").click(function(){
+        <script >
+            $(".actualizar").click(function () {
 
                 var respuesta = prompt("Porfavor ingrese la actualizacion");
-                if( respuesta==null){
-             
-                        
-                       // window.location.href = $(this).attr("href");
-                }else if(respuesta==""){
-                        
-                }else{
-                        //console.log( $(this).attr("href")+"&texto="+respuesta);
-                       window.location.href = $(this).attr("href")+"&texto="+respuesta;
-                }
-               return false;
+                if (respuesta == null) {
 
-            });    
+
+                    // window.location.href = $(this).attr("href");
+                } else if (respuesta == "") {
+
+                } else {
+                    //console.log( $(this).attr("href")+"&texto="+respuesta);
+                    window.location.href = $(this).attr("href") + "&texto=" + respuesta;
+                }
+                return false;
+
+            });
 
         </script>
 
 
         <script>
-        
-        $(".radios").click(function (){
-          // console.log($(this).attr("name"));
-           //console.log($(this).attr("value"));
-           var datosFormulario ={idPregunta:$(this).attr("name"),idRespuesta:$(this).attr("value")} ;
-           
-           $.post("../../../Controladores/controladorDePreguntas.php?action=camviarEstado",datosFormulario,prosesarDatos);
-           
-           
-        });
+
+            $(".radios").click(function () {
+                // console.log($(this).attr("name"));
+                //console.log($(this).attr("value"));
+                var datosFormulario = {idPregunta: $(this).attr("name"), idRespuesta: $(this).attr("value")};
+
+                $.post("../../../Controladores/controladorDePreguntas.php?action=camviarEstado", datosFormulario, prosesarDatos);
+
+
+            });
 
 
 
 
-       function prosesarDatos(datos){
-          
-       }
-        
+            function prosesarDatos(datos) {
+
+            }
+
+        </script>
+         <script type="text/javascript" src="../../js/estiloTextAreas.js"></script> <script type="text/javascript">
+
+            //<![CDATA[
+            bkLib.onDomLoaded(function () {
+                nicEditors.allTextAreas()
+            });
+            //]]>
+
         </script>
 
     </body>
