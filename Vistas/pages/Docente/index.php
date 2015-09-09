@@ -299,7 +299,7 @@
                                     <a href="#">Periodo 1 <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                     	<?php 
-									
+									/*
 					$temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 1);		
                                         
                                         foreach ($temas as $tema){
@@ -307,9 +307,10 @@
                                                 echo '<a href="verTema.php?idTema='.$tema['idTema'].'">'.$tema['titulo'].'</a>';
                                             echo "</li>";
                                         }
+										*/
                                         ?>
                                         <li>
-                                            <a href="agregarTema.php?periodo=1">Agregar Tema</a>
+                                            <a href="gestionarTemas.php?periodo=1">Gestionar</a>
                                         </li>
                                        
                                     </ul>

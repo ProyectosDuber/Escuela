@@ -10,7 +10,7 @@ class respuestas_controller{
 	static function main($action){
 		if ($action == "crear"){
 			respuestas_controller::crear();
-		}else if ($action == "editar"){
+		}else if ($action == "actualizar"){
                     respuestas_controller::editar();
 		}else if ($action == "delete"){
 			respuestas_controller::delete();
@@ -22,24 +22,29 @@ class respuestas_controller{
 	}
 	
 	static public function crear (){
-            echo 'bien';
-//		try {
-//			$arrayUser = array();
-//			$arrayUser['cedula'] = $_POST['cedula'];
-//			$arrayUser['nombres'] = $_POST['nombres'];
-//			$arrayUser['apellidos'] = $_POST['apellidos'];
-//                        $arrayUser['sexo'] = $_POST['sexo'];
-//			$arrayUser['fechaDeNacimiento'] = $_POST['fechaDeNacimiento'];
-//                        $arrayUser['telefono'] = $_POST['telefono'];
-//                        $arrayUser['email'] = $_POST['email'];
-//                        $arrayUser['direccion'] = $_POST['direccion'];
-//			
-//			$usuario = new usuarios ($arrayUser);
-//			$usuario->insertar();
-//			header("Location: ../frmNewUser.php?respuesta=correcto");
-//		} catch (Exception $e) {
-//			header("Location: ../frmNewUser.php?respuesta=error");
-//		}
+     try {
+     	$datos = array();
+     	$datos['respuesta']=$_POST['respuesta'];
+     	$datos['pregunta']=$_GET['pregunta'];
+     	$datos['estado']="correcta";
+
+     	$respuesta = new Respuesta($datos);
+     
+
+     	$correcta = $respuesta->getCorrecta();
+
+     	if($correcta==null || $correcta ==false){
+     			
+     	}else{
+     		$respuesta->setEstado("incorrecta");
+     	}
+
+     	$respuesta->insertar();
+     header("Location: ../Vistas/pages/Docente/gestionarEvaluacion.php?respuesta=creado&periodo=".$_GET['periodo']);
+
+     } catch (Exception $e) {
+     	header("Location: ../Vistas/pages/Docente/gestionarEvaluacion.php?respuesta=error&periodo=".$_GET['periodo']);
+     }
 
 }
     public static  function delete(){
@@ -66,10 +71,15 @@ class respuestas_controller{
 	
 	static public function editar (){
 		try {
+			$respuesta = new Respuesta(array(
+				'respuesta'=>$_GET['texto'],
+				'idRespuesta'=>$_GET['idRespuesta']
+				));
 			
-			
+			$respuesta->editar();
+			header("Location: ../Vistas/pages/Docente/gestionarEvaluacion.php?respuesta=actualizado&periodo=".$_GET['periodo']);
 		} catch (Exception $e) {
-			
+			header("Location: ../Vistas/pages/Docente/gestionarEvaluacion.php?respuesta=error&periodo=".$_GET['periodo']);
 		}
 	}
 	

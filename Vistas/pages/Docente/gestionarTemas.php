@@ -485,11 +485,18 @@ foreach ($temas as $tema) {
                         <a href="../../../Controladores/controladorDePreguntas.php?action=delete"></a>               
                                 <?php
                         
-                                $preguntas = Pregunta::preguntasPeriodo($_SESSION['idUsuario'], $_GET['periodo']);
+                                $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 4);
                                 
-                                foreach ($preguntas as $pregunta){
+                                foreach ($temas as $pregunta){
                                     echo '<div class="group">';
-                                        echo '<h3 id="'.$pregunta['idPregunta'].'"><strong id="'.$pregunta['idPregunta'].'">'.$pregunta['descripcion'].'</strong> &nbsp;&nbsp; <a class="eliminar" href="../../../Controladores/controladorDePreguntas.php?action=delete&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a  class="actualizar" href="../../../Controladores/controladorDePreguntas.php?action=actualizar&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
+                                        echo '<h3 id="'.$pregunta['idPregunta'].'">
+                                        <strong id="'.$pregunta['idPregunta'].'">'.$pregunta['descripcion'].'</strong>
+                                        &nbsp;&nbsp; 
+                                        <a class="eliminar" href="../../../Controladores/controladorDePreguntas.php?action=delete&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'">
+                                        <img style="width:20px; height:20px" src="../../Imagenes/delete.ico" />
+                                        </a>
+                                        <a  class="actualizar" href="../../../Controladores/controladorDePreguntas.php?action=actualizar&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'">
+                                        <img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
                                                 echo "</h3>";
                                             echo '<div >';
                                             

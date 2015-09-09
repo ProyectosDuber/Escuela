@@ -10,7 +10,7 @@ class preguntas_controller{
 	static function main($action){
 		if ($action == "crear"){
 			preguntas_controller::crear();
-		}else if ($action == "editar"){
+		}else if ($action == "actualizar"){
                     preguntas_controller::editar();
 		}else if ($action == "delete"){
 			preguntas_controller::delete();
@@ -22,31 +22,32 @@ class preguntas_controller{
 	}
 	
 	static public function crear (){
-            echo 'bien';
-//		try {
-//			$arrayUser = array();
-//			$arrayUser['cedula'] = $_POST['cedula'];
-//			$arrayUser['nombres'] = $_POST['nombres'];
-//			$arrayUser['apellidos'] = $_POST['apellidos'];
-//                        $arrayUser['sexo'] = $_POST['sexo'];
-//			$arrayUser['fechaDeNacimiento'] = $_POST['fechaDeNacimiento'];
-//                        $arrayUser['telefono'] = $_POST['telefono'];
-//                        $arrayUser['email'] = $_POST['email'];
-//                        $arrayUser['direccion'] = $_POST['direccion'];
-//			
-//			$usuario = new usuarios ($arrayUser);
-//			$usuario->insertar();
-//			header("Location: ../frmNewUser.php?respuesta=correcto");
-//		} catch (Exception $e) {
-//			header("Location: ../frmNewUser.php?respuesta=error");
-//		}
+     try {
+     session_start();
+     	$datos = array();
+     	$datos['descripcion']=$_POST['descripcion'];
+     	$datos['periodo']=$_GET['periodo'];
+     	$datos['usuario']=$_SESSION['idUsuario'];
+
+     	$Pregunta = new Pregunta($datos);
+     	
+
+     	
+     	
+     	$Pregunta->insertar();
+     header("Location: ../Vistas/pages/Docente/gestionarEvaluacion.php?respuesta=creado&periodo=".$_GET['periodo']);
+
+     } catch (Exception $e) {
+   	header("Location: ../Vistas/pages/Docente/gestionarEvaluacion.php?respuesta=error&periodo=".$_GET['periodo']);
+     }
 	}
 
 
 	public static  function delete(){
 		try {
-			$respuesta = new Pregunta(array('idPregunta'=>$_GET['idPregunta']));
-    		$respuesta->eliminar();
+			$Pregunta = new Pregunta(array('idPregunta'=>$_GET['idPregunta']));
+			$Pregunta->eliminarRespuestasAsosiadas();
+    		$Pregunta->eliminar();
     		header("Location: ../Vistas/pages/Docente/gestionarEvaluacion.php?respuesta=eliminado&periodo=".$_GET['periodo']);
 			
 		} catch (Exception $e) {
@@ -66,10 +67,15 @@ class preguntas_controller{
 	
 	static public function editar (){
 		try {
+			$Pregunta = new Pregunta(array(
+				'descripcion'=>$_GET['texto'],
+				'idPregunta'=>$_GET['idPregunta']
+				));
 			
-			
+			$Pregunta->editar();
+			header("Location: ../Vistas/pages/Docente/gestionarEvaluacion.php?respuesta=actualizado&periodo=".$_GET['periodo']);
 		} catch (Exception $e) {
-			
+			header("Location: ../Vistas/pages/Docente/gestionarEvaluacion.php?respuesta=error&periodo=".$_GET['periodo']);
 		}
 	}
 	

@@ -65,7 +65,7 @@ class Respuesta extends db_abstract_class {
 
             
     
-    protected function editar() {
+    public function editar() {
         $query = "UPDATE Respuestas SET respuesta=? where idRespuesta=?";
        $params = array(
        $this->respuesta,  
@@ -91,14 +91,14 @@ class Respuesta extends db_abstract_class {
     }
 
     public function insertar() {
-             $query = "INSERT INTO Usuarios VALUES('NULL',?,?)";
+             $query = "INSERT INTO Respuestas VALUES('NULL',?,?,?)";
        $params = array(
-       $this->username,
-       $this->password
-      
+       $this->respuesta,
+       $this->pregunta,
+       $this->estado
        );
         
-        parent::insertRow($query, $params);
+        $this::insertRow($query, $params);
         $this->Disconnect();
     }
 
@@ -116,6 +116,13 @@ class Respuesta extends db_abstract_class {
         
         return $array ;
         
+    }
+
+    public   function getCorrecta(){
+      
+        $array = $this->getRow("SELECT * FROM Respuestas where pregunta=?",array($this->pregunta));
+        return $array;
+
     }
 
     public static function getAll() {

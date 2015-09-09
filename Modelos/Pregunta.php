@@ -5,8 +5,7 @@ class Pregunta extends db_abstract_class {
     
     private $idPregunta;
     private $periodo;
-    private $pregunta;
-   
+    private $descripcion;
     private $usuario;
    
     
@@ -37,8 +36,8 @@ class Pregunta extends db_abstract_class {
         return $this->periodo;
     }
 
-    function getPregunta() {
-        return $this->pregunta;
+    function getDescripcion() {
+        return $this->descripcion;
     }
 
     function getUsuario() {
@@ -53,8 +52,8 @@ class Pregunta extends db_abstract_class {
         $this->periodo = $periodo;
     }
 
-    function setPregunta($pregunta) {
-        $this->pregunta = $pregunta;
+    function setDescripcion($descripcion) {
+        $this->descripcion = $descripcion;
     }
 
     function setUsuario($usuario) {
@@ -66,14 +65,13 @@ class Pregunta extends db_abstract_class {
             
     
     public  function editar() {
-        $query = "UPDATE Usuarios SET username=?,password=? where idUsuario=?";
+         $query = "UPDATE Preguntas SET descripcion=? where idPregunta=?";
        $params = array(
-       $this->username,
-       $this->password,
-       $this->idUsuario    
+       $this->descripcion,  
+       $this->idPregunta    
        );
         
-        parent::updateRow($query, $params);
+        $this::updateRow($query, $params);
             $this->Disconnect();
     }
 
@@ -84,10 +82,11 @@ class Pregunta extends db_abstract_class {
     }
 
     public function insertar() {
-             $query = "INSERT INTO Usuarios VALUES('NULL',?,?)";
+             $query = "INSERT INTO Preguntas VALUES('NULL',?,?,?)";
        $params = array(
-       $this->username,
-       $this->password
+       $this->periodo,
+       $this->descripcion,
+       $this->usuario
       
        );
         
@@ -100,6 +99,10 @@ class Pregunta extends db_abstract_class {
         $array = $usuario->getRow($query, $parametros);
   
         return $array;
+        
+    }
+    public  function eliminarRespuestasAsosiadas(){
+         $this->deleteRow("DELETE FROM Respuestas where pregunta=?",array($this->idPregunta));
         
     }
     public static function buscarForId($id) {
