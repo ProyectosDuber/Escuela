@@ -134,7 +134,16 @@ class Usuario extends db_abstract_class {
         return $array ;
         
     }
-
+    public static function getTodosLosEstudiantes(){
+        $Estudiante = new Usuario();
+        $estudiantes = $Estudiante->getRows("SELECT * FROM Usuarios where tipo=? and estado=?",array("Estudiante","Activo"));   
+        return $estudiantes; 
+    }
+     public static function buscarEstudiates($busqueda){
+        $Estudiante = new Usuario();
+        $estudiantes = $Estudiante->getRows("SELECT * FROM Usuarios where (nombres like ? or documento like ? or apellidos like ?) and (tipo=?) ",array("%".$busqueda."%","%".$busqueda."%","%".$busqueda."%","Estudiante"));   
+        return $estudiantes; 
+    }
     public static function getAll() {
         
     }

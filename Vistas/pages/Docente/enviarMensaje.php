@@ -2,6 +2,8 @@
 <?php include_once '../../../Modelos/Tema.php'; ?>
 <?php include_once '../../../Modelos/Pregunta.php'; ?>
 <?php include_once '../../../Modelos/Respuesta.php'; ?>
+<?php include_once '../../../Modelos/Usuario.php'; ?>
+
 <?php include_once 'menuDocente.php'; ?>
 <html lang="es">
 
@@ -17,12 +19,14 @@
 
         <script src="../../js/jquery.js"></script>
         <script src="../../js/jquery-ui/jquery-ui.js"></script>
-        
-        
-        
-        
+
+        <!-- Configuracion de text areas -->
+       
+
+
+
         <LINK REL="stylesheet" TYPE="text/css" HREF="../../js/jquery-ui/jquery-ui.css">
-         
+
         <!-- Bootstrap Core CSS -->
         <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -51,8 +55,8 @@
 
         </style>
         <script src="../../js/acordion.js"></script>  
-        <script src="../../js/botones.js"> </script>
-     
+        <script src="../../js/botones.js"></script>
+
     </head>
 
     <body>
@@ -272,7 +276,7 @@
                     <!-- /.dropdown -->
                 </ul>
                 <!-- /.navbar-top-links -->
-                <!-- inicio menu -->
+ <!-- inicio menu -->
               
                 <?php menu();  ?>
                 <!-- Fin menu -->
@@ -283,7 +287,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Gestion de evaluacion periodo <?php echo $_GET['periodo']; ?></h1>
+                        <h1 class="page-header">Gestion de temas periodo <?php echo $_GET['periodo']; ?></h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -293,93 +297,74 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <!-- inicio de preguntas -->
-                                
-                                
-                                <div id="accordion">
-                                <!--  
-                                    <div class="group">
-                                        <h3>Section 1</h3>
-                                        <div>
-                                            <p>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.</p>
+
+
+                                    <!--  
+                                        <div class="group">
+                                            <h3>Section 1</h3>
+                                            <div>
+                                                <p>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                   -->
-                                   
-                              <!--        <td style="width: 50%"></td> -->
-                        
-                                    
-                                <?php
-                        
-                                $preguntas = Pregunta::preguntasPeriodo($_SESSION['idUsuario'], $_GET['periodo']);
+                                    -->
+
+<!--        <td style="width: 50%"></td> -->
+
+                                  <div class="panel-group" id="accordion">                
+                                 
                                 
-                                foreach ($preguntas as $pregunta){
-                                    echo '<div class="group">';
-
-
-                                    if($pregunta['idPregunta']==2){
-                                        echo '<h3  id="'.$pregunta['idPregunta'].'" ><strong id="'.$pregunta['idPregunta'].'">'.$pregunta['descripcion'].' </strong> &nbsp;&nbsp; <a class="eliminar" href="../../../Controladores/controladorDePreguntas.php?action=delete&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a  class="actualizar" href="../../../Controladores/controladorDePreguntas.php?action=actualizar&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
-                                       
-                                    }else{
-                                        echo '<h3 id="'.$pregunta['idPregunta'].'"><strong id="'.$pregunta['idPregunta'].'">'.$pregunta['descripcion'].'</strong> &nbsp;&nbsp; <a class="eliminar" href="../../../Controladores/controladorDePreguntas.php?action=delete&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a  class="actualizar" href="../../../Controladores/controladorDePreguntas.php?action=actualizar&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
-                                       
-                                    }
-                                                 echo "</h3>";
-                                            echo '<div >';
-                                            
-                                            $respuestas = Respuesta::respuestasPregunta($pregunta['idPregunta']);
-                                            echo '<table border =1>';
-                                            foreach ($respuestas as $respuesta){
-                                              
-                                                echo '<tr>';
-                                                
-                                                if($respuesta['estado']=="incorrecta"){
-                                                    echo '<td style="width: 96.8%" >';
-                                                    echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$pregunta['idPregunta'].'" value="'.$respuesta['idRespuesta'].'"><a > '.$respuesta['respuesta'].'</a><br>';
-                                                   
-                                                }else{
-                                                    echo '<td style="width: 96.8%">';
-                                                     echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$pregunta['idPregunta'].'" value="'.$respuesta['idRespuesta'].'" checked="true"><a > '.$respuesta['respuesta'].'</a><br>';
-                                                     
-                                                     
-                                                     }
-
-                                                 echo '</td >';
-                                                    echo '<td><a class="eliminar" a href="../../../Controladores/controladorDeRespuestas.php?periodo='.$_GET['periodo'].'&action=delete&idRespuesta='.$respuesta["idRespuesta"].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a  class="actualizar" href="../../../Controladores/controladorDeRespuestas.php?periodo='.$_GET['periodo'].'&action=actualizar&idRespuesta='.$respuesta["idRespuesta"].'"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
-                                                    echo '</td>';     
-                                             
-                                                echo '</tr>';
-                                                
-                                            }
-                                          echo '</table>';  
-                                            
-                                            echo '<br>';
-                                            echo '<form  method="POST" action="../../../Controladores/controladorDeRespuestas.php?pregunta='.$pregunta['idPregunta'].'&action=crear&periodo='.$_GET['periodo'].'">';
-                                                echo '<input  type="text" name="respuesta" required id="respuesta" placeholder="Escriba aqui su nueva respuesta" class="form-control"><br> <br>';
-                                                echo ' <button class="btn btn-default" type="submit">Agregar respuesta</button>';
-                                            echo ' </form> ';
-                                       echo '</div>';
-                                    echo '</div>';
-                                }
-                                
-                                ?>   
-                               
-                                   <br>
-                                   <?php 
-
-                                    echo '<form  method="POST" action="../../../Controladores/controladorDePreguntas.php?action=crear&periodo='.$_GET['periodo'].'">';
-                                   ?>
-                             
-                                     <input class="form-control" type="text" name="descripcion" id="descripcion" required placeholder="Escriba aqui su nueva pregunta">
-                                     <br>  <button class="btn btn-default" type="submit">Agregar pregunta</button>
-                                   </form>        
-
-
-
                                 </div>
-                                
-                               <!-- Final de preguntas -->  
-                                
-                                
+
+                                 <h1>Nuevo mensaje</h1>
+                                    <form role="form">
+                                       
+                                    <div class="form-group input-group">
+                                            <input id="busqueda" type="text" class="form-control" placeholder="Porfavor ingrese el nombre del estudiante para buscarlo">
+                                            <span class="input-group-btn">
+                                                <button id="buscar" class="btn btn-default" type="button"><i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                         <div class="form-group">
+                                            <label>Destino</label>
+                                            <select id="estudiantes" class="form-control">
+                                 <?php 
+
+                                        $estudiantes = Usuario::getTodosLosEstudiantes();        
+                                            foreach ($estudiantes as $estudiante) {
+                                                echo "<option value='".$estudiante['idEstudiante']."'>";
+                                                    echo $estudiante['documento']." ".$estudiante['nombres']." ".$estudiante['apellidos'];
+                                                echo "</option>";
+
+                                        }
+
+                                                 ?>
+                                            </select>
+                                        </div>
+                                            
+
+                                    <br>  
+                                    <textarea name="contenido" id="contenido" style="width: 100%;"></textarea>  <br>    
+                                    <button class="btn btn-default" type="submit">Enviar</button>
+
+                                    </form>
+
+                                    <br>
+<?php/*
+echo '<form  method="POST" action="../../../Controladores/controladorDeTemas.php?action=crear&periodo=' . $_GET['periodo'] . '">';
+*/
+?>
+
+                                    
+                                    </form>        
+
+
+
+                            
+
+                                <!-- Final de preguntas -->  
+
+
                             </div>
                         </div>
                     </div>
@@ -393,10 +378,10 @@
         </div>
         <!-- /#wrapper -->
 
-  
+
         <script src="../../js/logOut.js"></script>
         <!-- jQuery -->
- 
+
 
         <!-- Bootstrap Core JavaScript -->
         <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -407,60 +392,95 @@
         <!-- Custom Theme JavaScript -->
         <script src="../../dist/js/sb-admin-2.js"></script>
         <script >
-            $(".eliminar").click(function(){
-              
-                var respuesta = confirm("Desea eliminar el registro");
-                if( respuesta){
-             
-                        window.location.href = $(this).attr("href");
-                }else{
- 
-                }
-               return false;
+             $(".eliminar").click(function () {
 
-            });    
+                 var respuesta = confirm("Desea eliminar el registro");
+                 if (respuesta) {
+
+                     window.location.href = $(this).attr("href");
+                 } else {
+
+                 }
+                 return false;
+
+             });
 
         </script>
-  <script >
-            $(".actualizar").click(function(){
+        <script >
+            $(".actualizar").click(function () {
 
                 var respuesta = prompt("Porfavor ingrese la actualizacion");
-                if( respuesta==null){
-             
-                        
-                       // window.location.href = $(this).attr("href");
-                }else if(respuesta==""){
-                        
-                }else{
-                        //console.log( $(this).attr("href")+"&texto="+respuesta);
-                       window.location.href = $(this).attr("href")+"&texto="+respuesta;
-                }
-               return false;
+                if (respuesta == null) {
 
-            });    
+
+                    // window.location.href = $(this).attr("href");
+                } else if (respuesta == "") {
+
+                } else {
+                    //console.log( $(this).attr("href")+"&texto="+respuesta);
+                    window.location.href = $(this).attr("href") + "&texto=" + respuesta;
+                }
+                return false;
+
+            });
 
         </script>
 
 
         <script>
-        
-        $(".radios").click(function (){
-          // console.log($(this).attr("name"));
-           //console.log($(this).attr("value"));
-           var datosFormulario ={idPregunta:$(this).attr("name"),idRespuesta:$(this).attr("value")} ;
-           
-           $.post("../../../Controladores/controladorDePreguntas.php?action=camviarEstado",datosFormulario,prosesarDatos);
-           
-           
-        });
+
+            $("#buscar").click(function () {
+                // console.log($(this).attr("name"));
+                //console.log($(this).attr("value"));
+
+                var datosFormulario = {busqueda: $("#busqueda").val()};
+                
+
+                $.getJSON("../../../Controladores/controladorDeUsuario.php?action=busqueda", datosFormulario, prosesarDatos);
+
+
+            });
+            $("#busqueda").keyup(function () {
+                // console.log($(this).attr("name"));
+                //console.log($(this).attr("value"));
+                   
+                var datosFormulario = {busqueda: $(this).val()};
+                
+
+                $.getJSON("../../../Controladores/controladorDeUsuario.php?action=busqueda", datosFormulario, prosesarDatos);
+
+
+            });
+            
 
 
 
 
-       function prosesarDatos(datos){
-          
-       }
-        
+            function prosesarDatos(datos) {
+                var options ="";
+                var numero = -1;
+                   $(datos).each(function (index,item){
+                    numero =index;
+                           options +="<option >"+item.documento+" "+item.nombres+" "+item.apellidos+"</option>"; 
+                   });
+               if (numero > -1) {
+                $("#estudiantes").html(options);
+               }else{
+                     $("#estudiantes").html("<option value='noHayEstudiantes'>no hay estudiantes</option>");
+               } 
+
+                  
+            }
+
+        </script>
+         <script type="text/javascript" src="../../js/estiloTextAreas.js"></script> <script type="text/javascript">
+
+            //<![CDATA[
+            bkLib.onDomLoaded(function () {
+                nicEditors.allTextAreas()
+            });
+            //]]>
+
         </script>
 
     </body>

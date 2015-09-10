@@ -2,6 +2,7 @@
 <?php include_once '../../../Modelos/Tema.php'; ?>
 <?php include_once '../../../Modelos/Pregunta.php'; ?>
 <?php include_once '../../../Modelos/Respuesta.php'; ?>
+<?php include_once 'menuDocente.php'; ?>
 <html lang="es">
 
     <head>
@@ -273,186 +274,10 @@
                     <!-- /.dropdown -->
                 </ul>
                 <!-- /.navbar-top-links -->
-
-                <div class="navbar-default sidebar" role="navigation">
-                    <div class="sidebar-nav navbar-collapse">
-                        <ul class="nav" id="side-menu">
-
-
-
-                            <li>
-                                <a href="ListarEstudiantes.php"><i class="fa fa-table fa-fw"></i> Estudiantes</a>
-                            </li>
-
-                            <li>
-                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Archivos<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="subirArchivo.php">Subir </a>
-                                    </li>
-                                    <li>
-                                        <a href="eliminarArchivo.php">Eliminar</a>
-                                    </li>
-                                    <li>
-                                        <a href="bajarArchivo.php">Bajar</a>
-                                    </li>
-
-                                </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Mensajes<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="enviarMensaje.php">Enviar </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="listarMensajes.php">Listar</a>
-                                    </li>
-
-                                </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Tematicas<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-
-                                    <li>
-                                        <a href="#">Periodo 1 <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                            <?php
-                                            /*
-                                              $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 1);
-
-                                              foreach ($temas as $tema) {
-                                              echo "<li>";
-                                              echo '<a href="verTema.php?idTema=' . $tema['idTema'] . '">' . $tema['titulo'] . '</a>';
-                                              echo "</li>";
-                                              } */
-                                            ?>
-                                            <li>
-                                                <a href="gestionarTemas.php?periodo=1">Gestionar</a>
-                                            </li>
-
-                                        </ul>
-                                        <!-- /.nav-third-level -->
-
-                                    </li>
-                                    <li>
-                                        <a href="#">Periodo 2 <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                            <?php
-                                            /*
-                                              $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 2);
-
-                                              foreach ($temas as $tema) {
-                                              echo "<li>";
-                                              echo '<a href="verTema.php?idTema=' . $tema['idTema'] . '">' . $tema['titulo'] . '</a>';
-                                              echo "</li>";
-                                              } */
-                                            ?>
-                                            <li>
-                                                <a href="gestionarTemas.php?periodo=2">Gestionar</a>
-                                            </li>
-                                        </ul>
-                                        <!-- /.nav-third-level -->
-
-                                    </li>
-                                    <li>
-                                        <a href="#">Periodo 3 <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                            <?php /*
-                                              $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 3);
-
-                                              foreach ($temas as $tema) {
-                                              echo "<li>";
-                                              echo '<a href="verTema.php?idTema=' . $tema['idTema'] . '">' . $tema['titulo'] . '</a>';
-                                              echo "</li>";
-                                              } */
-                                            ?>
-                                            <li>
-                                                <a href="gestionarTemas.php?periodo=3">Gestionar</a>
-                                            </li>
-                                        </ul>
-                                        <!-- /.nav-third-level -->
-
-                                    </li>
-                                    <li>
-                                        <a href="#">Periodo 4 <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                            <?php /*
-                                              $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], 4);
-
-                                              foreach ($temas as $tema) {
-                                              echo "<li>";
-                                              echo '<a href="verTema.php?idTema=' . $tema['idTema'] . '">' . $tema['titulo'] . '</a>';
-                                              echo "</li>";
-                                              } */
-                                            ?>
-                                            <li>
-                                                <a href="gestionarTemas.php?periodo=4">Gestionar</a>
-                                            </li>
-                                        </ul>
-                                        <!-- /.nav-third-level -->
-
-                                    </li>
-                                </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Evaluaciones<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-
-                                    <li>
-                                        <a href="#">Periodo 1 <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                            <li>
-                                                <a href="gestionarEvaluacion.php?periodo=1">Gestionar</a>
-                                            </li>
-
-                                        </ul>
-                                        <!-- /.nav-third-level -->
-
-                                    </li>
-                                    <li>
-                                        <a href="#">Periodo 2 <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                            <li>
-                                                <a href="gestionarEvaluacion.php?periodo=2">Gestionar</a>
-                                            </li>
-                                        </ul>
-                                        <!-- /.nav-third-level -->
-
-                                    </li>
-                                    <li>
-                                        <a href="#">Periodo 3 <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                            <li>
-                                                <a href="gestionarEvaluacion.php?periodo=3">Gestionar</a>
-                                            </li>
-                                        </ul>
-                                        <!-- /.nav-third-level -->
-
-                                    </li>
-                                    <li>
-                                        <a href="#">Periodo 4 <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                            <li>
-                                                <a href="gestionarEvaluacion.php?periodo=4">Gestionar</a>
-                                            </li>
-                                        </ul>
-                                        <!-- /.nav-third-level -->
-
-                                    </li>
-                                </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
-
-                        </ul>
-                    </div>
-                    <!-- /.sidebar-collapse -->
-                </div>
+ <!-- inicio menu -->
+              
+                <?php menu();  ?>
+                <!-- Fin menu -->
                 <!-- /.navbar-static-side -->
             </nav>
 
@@ -472,7 +297,6 @@
                                 <!-- inicio de preguntas -->
 
 
-                                <div id="accordion">
                                     <!--  
                                         <div class="group">
                                             <h3>Section 1</h3>
@@ -484,12 +308,12 @@
 
 <!--        <td style="width: 50%"></td> -->
 
-                                    <a href="../../../Controladores/controladorDePreguntas.php?action=delete"></a>               
+                                  <div class="panel-group" id="accordion">                
                                     <?php
                                     $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], $_GET['periodo']);
 
                                     foreach ($temas as $tema) {
-                                        echo '<div class="group">';
+                                       /* echo '<div class="group">';
                                         echo '<h3 id="' . $tema['idTema'] . '">
                                         <strong id="' . $tema['idTema'] . '">' . $tema['titulo'] . '</strong>
                                             &nbsp;&nbsp; 
@@ -500,14 +324,60 @@
                                              <img style="width:20px; height:20px" src="../../Imagenes/update.ico" />
                                         </a>';
                                         echo "</h3>";
-                                        echo '<div>';
+                                        echo '<div style="display: none; height: 100%;" >';
+                                        echo "<table>";
+                                        echo "<tr>";
+                                        echo "<td >";
                                         echo $tema['contenido'];
+                                        echo "</td>";
+                                        echo "</tr>";
+                                        echo "</table>";
+                                        echo '</div>';
+                                        echo '</div>';
 
-                                        echo '</div>';
-                                        echo '</div>';
+                                        */
+
+                                        echo '
+                                 <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#'.$tema["idTema"].'">'.$tema["titulo"].'</a>
+                                                &nbsp;&nbsp; 
+                                        <a class="eliminar" href="../../../Controladores/controladorDeTemas.php?action=delete&idTema=' . $tema["idTema"] . '&periodo=' . $_GET["periodo"] . '">
+                                            <img style="width:20px; height:20px" src="../../Imagenes/delete.ico" />
+                                        </a>
+                                        <a  class="actualizar" href="../../../Controladores/controladorDeTemas.php?action=actualizar&idTema='.$tema["idTema"].'&periodo='.$_GET["periodo"] . '">
+                                             <img style="width:20px; height:20px" src="../../Imagenes/update.ico" />
+                                        </a>
+                                        </h4>
+                                    </div>
+
+                                    <div id="'.$tema["idTema"].'" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                      
+                                        '.$tema["contenido"].'
+                                        
+                                        </div>
+                                    </div>
+                                </div>';
+
                                     }
-                                    ?>   
-
+                                    ?> 
+             
+                       <!--  
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Collapsible Group Item #1</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        </div>
+                                    </div>
+                                </div>
+                                --> 
                                     <br>
 <?php
 echo '<form  method="POST" action="../../../Controladores/controladorDeTemas.php?action=crear&periodo=' . $_GET['periodo'] . '">';
@@ -521,7 +391,7 @@ echo '<form  method="POST" action="../../../Controladores/controladorDeTemas.php
 
 
 
-                                </div>
+                            
 
                                 <!-- Final de preguntas -->  
 

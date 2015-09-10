@@ -18,16 +18,16 @@ USE `escuela` ;
 -- Table `escuela`.`Usuarios`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `escuela`.`Usuarios` (
-  `idUsuario` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  `tipo` ENUM('Docente', 'Estudiante') NULL,
-  `nombres` VARCHAR(45) NULL,
-  `apellidos` VARCHAR(45) NULL,
-  `documento` VARCHAR(45) NULL,
-  `sexo` ENUM('Femenino', 'Masculino') NULL,
-  `estado` ENUM('Eliminado', 'Activo') NULL,
-  PRIMARY KEY (`idUsuario`))
+  `idUsuario` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `username` VARCHAR(45) NOT NULL COMMENT '',
+  `password` VARCHAR(45) NOT NULL COMMENT '',
+  `tipo` ENUM('Docente', 'Estudiante') NULL COMMENT '',
+  `nombres` VARCHAR(45) NULL COMMENT '',
+  `apellidos` VARCHAR(45) NULL COMMENT '',
+  `documento` VARCHAR(45) NULL COMMENT '',
+  `sexo` ENUM('Femenino', 'Masculino') NULL COMMENT '',
+  `estado` ENUM('Eliminado', 'Activo') NULL COMMENT '',
+  PRIMARY KEY (`idUsuario`)  COMMENT '')
 ENGINE = InnoDB;
 
 
@@ -35,14 +35,14 @@ ENGINE = InnoDB;
 -- Table `escuela`.`Temas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `escuela`.`Temas` (
-  `idTema` INT NOT NULL AUTO_INCREMENT,
-  `periodo` INT NULL,
-  `titulo` VARCHAR(45) NULL,
-  `contenido` VARCHAR(45) NULL,
-  `usuario` INT NOT NULL,
-  `estado` ENUM('Eliminado', 'Activo') NULL,
-  PRIMARY KEY (`idTema`),
-  INDEX `fk_Temas_Usuarios_idx` (`usuario` ASC),
+  `idTema` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `periodo` INT NULL COMMENT '',
+  `titulo` VARCHAR(45) NULL COMMENT '',
+  `contenido` TEXT NULL COMMENT '',
+  `usuario` INT NOT NULL COMMENT '',
+  `estado` ENUM('Eliminado', 'Activo') NULL COMMENT '',
+  PRIMARY KEY (`idTema`)  COMMENT '',
+  INDEX `fk_Temas_Usuarios_idx` (`usuario` ASC)  COMMENT '',
   CONSTRAINT `fk_Temas_Usuarios`
     FOREIGN KEY (`usuario`)
     REFERENCES `escuela`.`Usuarios` (`idUsuario`)
@@ -55,11 +55,11 @@ ENGINE = InnoDB;
 -- Table `escuela`.`Archivos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `escuela`.`Archivos` (
-  `idArchivo` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NULL,
-  `tema` INT NOT NULL,
-  PRIMARY KEY (`idArchivo`),
-  INDEX `fk_Archivos_Temas1_idx` (`tema` ASC),
+  `idArchivo` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `nombre` VARCHAR(45) NULL COMMENT '',
+  `tema` INT NOT NULL COMMENT '',
+  PRIMARY KEY (`idArchivo`)  COMMENT '',
+  INDEX `fk_Archivos_Temas1_idx` (`tema` ASC)  COMMENT '',
   CONSTRAINT `fk_Archivos_Temas1`
     FOREIGN KEY (`tema`)
     REFERENCES `escuela`.`Temas` (`idTema`)
@@ -72,14 +72,15 @@ ENGINE = InnoDB;
 -- Table `escuela`.`Mensajes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `escuela`.`Mensajes` (
-  `idMensaje` INT NOT NULL AUTO_INCREMENT,
-  `emisor` INT NOT NULL,
-  `reseptor` INT NOT NULL,
-  `fecha` TIMESTAMP NULL default current_timestamp,
-  `estado` ENUM('Eliminado', 'Activo') NULL,
-  PRIMARY KEY (`idMensaje`),
-  INDEX `fk_Mensajes_Usuarios1_idx` (`emisor` ASC),
-  INDEX `fk_Mensajes_Usuarios2_idx` (`reseptor` ASC),
+  `idMensaje` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `emisor` INT NOT NULL COMMENT '',
+  `reseptor` INT NOT NULL COMMENT '',
+  `fecha` TIMESTAMP NULL default current_timestamp COMMENT '',
+  `estado` ENUM('Eliminado', 'Activo') NULL COMMENT '',
+  `contenido` TEXT NULL COMMENT '',
+  PRIMARY KEY (`idMensaje`)  COMMENT '',
+  INDEX `fk_Mensajes_Usuarios1_idx` (`emisor` ASC)  COMMENT '',
+  INDEX `fk_Mensajes_Usuarios2_idx` (`reseptor` ASC)  COMMENT '',
   CONSTRAINT `fk_Mensajes_Usuarios1`
     FOREIGN KEY (`emisor`)
     REFERENCES `escuela`.`Usuarios` (`idUsuario`)
@@ -97,12 +98,12 @@ ENGINE = InnoDB;
 -- Table `escuela`.`Preguntas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `escuela`.`Preguntas` (
-  `idPregunta` INT NOT NULL AUTO_INCREMENT,
-  `periodo` INT NULL,
-  `descripcion` VARCHAR(45) NULL,
-  `usuario` INT NOT NULL,
-  PRIMARY KEY (`idPregunta`),
-  INDEX `fk_Preguntas_Usuarios1_idx` (`usuario` ASC),
+  `idPregunta` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `periodo` INT NULL COMMENT '',
+  `descripcion` VARCHAR(45) NULL COMMENT '',
+  `usuario` INT NOT NULL COMMENT '',
+  PRIMARY KEY (`idPregunta`)  COMMENT '',
+  INDEX `fk_Preguntas_Usuarios1_idx` (`usuario` ASC)  COMMENT '',
   CONSTRAINT `fk_Preguntas_Usuarios1`
     FOREIGN KEY (`usuario`)
     REFERENCES `escuela`.`Usuarios` (`idUsuario`)
@@ -115,12 +116,12 @@ ENGINE = InnoDB;
 -- Table `escuela`.`Respuestas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `escuela`.`Respuestas` (
-  `idRespuesta` INT NOT NULL AUTO_INCREMENT,
-  `respuesta` VARCHAR(45) NULL,
-  `pregunta` INT NOT NULL,
-  `estado` ENUM('correcta', 'incorrecta') NULL,
-  PRIMARY KEY (`idRespuesta`),
-  INDEX `fk_Respuestas_Preguntas1_idx` (`pregunta` ASC),
+  `idRespuesta` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `respuesta` VARCHAR(45) NULL COMMENT '',
+  `pregunta` INT NOT NULL COMMENT '',
+  `estado` ENUM('correcta', 'incorrecta') NULL COMMENT '',
+  PRIMARY KEY (`idRespuesta`)  COMMENT '',
+  INDEX `fk_Respuestas_Preguntas1_idx` (`pregunta` ASC)  COMMENT '',
   CONSTRAINT `fk_Respuestas_Preguntas1`
     FOREIGN KEY (`pregunta`)
     REFERENCES `escuela`.`Preguntas` (`idPregunta`)
@@ -133,12 +134,12 @@ ENGINE = InnoDB;
 -- Table `escuela`.`Calificaciones`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `escuela`.`Calificaciones` (
-  `idCalificacion` INT NOT NULL AUTO_INCREMENT,
-  `perido` INT NULL,
-  `estudiante` INT NOT NULL,
-  `calificacion` INT NULL,
-  PRIMARY KEY (`idCalificacion`),
-  INDEX `fk_Calificaciones_Usuarios1_idx` (`estudiante` ASC),
+  `idCalificacion` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `perido` INT NULL COMMENT '',
+  `estudiante` INT NOT NULL COMMENT '',
+  `calificacion` INT NULL COMMENT '',
+  PRIMARY KEY (`idCalificacion`)  COMMENT '',
+  INDEX `fk_Calificaciones_Usuarios1_idx` (`estudiante` ASC)  COMMENT '',
   CONSTRAINT `fk_Calificaciones_Usuarios1`
     FOREIGN KEY (`estudiante`)
     REFERENCES `escuela`.`Usuarios` (`idUsuario`)

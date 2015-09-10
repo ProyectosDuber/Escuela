@@ -15,9 +15,11 @@ class usuarios_controller{
 			usuarios_controller::buscarID(1);
 		}else if($action == "buscar"){
                     usuarios_controller::buscar();
-                }else if($action == "Iniciar_sesion"){
+        }else if($action == "Iniciar_sesion"){
                     usuarios_controller::IniciarSesion();
-                }
+        }else if($action == "busqueda"){
+                    usuarios_controller::busqueda();
+        }
 	}
 	
 	static public function crear (){
@@ -40,7 +42,30 @@ class usuarios_controller{
 //			header("Location: ../frmNewUser.php?respuesta=error");
 //		}
 	}
-	
+	public static function busqueda(){
+
+		try {
+			$usuario = new Usuario();
+
+			$Estudiantes = $usuario->buscarEstudiates($_GET['busqueda']);
+			echo json_encode($Estudiantes);
+
+		} catch (Exception $e) {
+			return null;
+		}
+	}
+	public static function getTodosLosEstudiantes(){
+
+		try {
+			$usuario = new Usuario();
+
+			return $usuario->getTodosLosEstudiantes();
+
+		} catch (Exception $e) {
+			return null;
+		}
+	}
+
 	static public function editar (){
 		try {
 			
@@ -54,7 +79,7 @@ class usuarios_controller{
                         $arrayUser['email'] = $_POST['email'];
                         $arrayUser['direccion'] = $_POST['direccion'];
 			
-			$usuario = new usuarios ($arrayUser);
+			$usuario = new Usuario ($arrayUser);
 			$usuario->editar();
 			header("Location: ../frmNewUser.php?respuesta=correcto");
 		} catch (Exception $e) {
