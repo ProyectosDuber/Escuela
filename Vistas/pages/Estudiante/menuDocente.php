@@ -8,9 +8,6 @@ echo '<div class="navbar-default sidebar" role="navigation">
 
                            
 							
-                            <li>
-                                <a href="ListarEstudiantes.php"><i class="fa fa-table fa-fw"></i> Estudiantes</a>
-                            </li>
                              <li>
                                 <a href="#"><i class="fa fa-wrench fa-fw"></i> Mensajes<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
@@ -27,17 +24,7 @@ echo '<div class="navbar-default sidebar" role="navigation">
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
-                            <li>
-                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Archivos<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="subirArchivo.php">Subir </a>
-                                    </li>
-                                    
-
-                                </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
+                           
                            
                             <li>
                                 <a href="#"><i class="fa fa-sitemap fa-fw"></i> Tematicas<span class="fa arrow"></span></a>

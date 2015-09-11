@@ -1,30 +1,77 @@
 <?php
 require_once '../Modelos/Respuesta.php';
 require_once '../Modelos/Pregunta.php';
+require_once '../Modelos/Calificacion.php';
+
 if(!empty($_GET['action'])){
-    calificaciones_controller::main($_GET['action']);
+    preguntas_controller::main($_GET['action']);
 }
 
-class calificaciones_controller{
+class preguntas_controller{
 	
 	static function main($action){
 		if ($action == "crear"){
-			calificaciones_controller::crear();
+			preguntas_controller::crear();
 		}else if ($action == "actualizar"){
-                    calificaciones_controller::editar();
+                    preguntas_controller::editar();
 		}else if ($action == "delete"){
-			calificaciones_controller::delete();
+			preguntas_controller::delete();
 		}else if($action == "buscar"){
-                    calificaciones_controller::buscar();
+                    preguntas_controller::buscar();
                 }else if($action == "camviarEstado"){
-                    calificaciones_controller::camviarEstado();
+                    preguntas_controller::camviarEstado();
                 }
 	}
-	
+
+	public static function comprobar(){
+
+      try {
+        session_start();
+        $calificacion = Calificacion::comrobarCalificacion($_SESSION['periodo'],$_SESSION['idUsuario']);
+        if($calificacion ==null || $calificacion==false){
+          return false;
+        }else{
+          return true;
+        }
+
+
+
+
+
+
+      } catch (Exception $e) {
+        
+      }
+  }
 	static public function crear (){
      try {
      session_start();
-     	$datos = array();
+     $buenas=0;
+     $preguntas=0;
+     	foreach($_POST as $idRespuesta){
+            $respuesta = Respuesta::buscarForId($idRespuesta);
+
+            if($respuesta['estado']=="correcta"){
+              $buenas ++;          
+            }
+            $preguntas++;
+
+      }
+
+      $total = round(((100*$buenas)/$preguntas),0);
+    
+
+      $datos['periodo']= $_SESSION['periodo'];
+      $datos['estudiante']=$_SESSION['idUsuario'];
+      $datos['calificacion']= $total;
+      $calificacion = new Calificacion($datos);
+
+      $calificacion->insertar();
+
+header("Location: ../Vistas/pages/Estudiante/gestionarEvaluacion.php?respuesta=calificado&periodo=".$_GET['periodo']);
+
+/*
+      $datos = array();
      	$datos['descripcion']=$_POST['descripcion'];
      	$datos['periodo']=$_GET['periodo'];
      	$datos['usuario']=$_SESSION['idUsuario'];
@@ -35,10 +82,10 @@ class calificaciones_controller{
      	
      	
      	$Pregunta->insertar();
-     header("Location: ../Vistas/pages/Docente/gestionarEvaluacion.php?respuesta=creado&periodo=".$_GET['periodo']);
-
+     
+*/
      } catch (Exception $e) {
-   	header("Location: ../Vistas/pages/Docente/gestionarEvaluacion.php?respuesta=error&periodo=".$_GET['periodo']);
+   	header("Location: ../Vistas/pages/Estudiante/gestionarEvaluacion.php?respuesta=error&periodo=".$_GET['periodo']);
      }
 	}
 

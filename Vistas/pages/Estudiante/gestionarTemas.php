@@ -2,6 +2,7 @@
 <?php include_once '../../../Modelos/Tema.php'; ?>
 <?php include_once '../../../Modelos/Pregunta.php'; ?>
 <?php include_once '../../../Modelos/Respuesta.php'; ?>
+<?php include_once '../../../Modelos/Archivo.php'; ?>
 <?php include_once 'menuDocente.php'; ?>
 <html lang="es">
 
@@ -310,7 +311,7 @@
 
                                   <div class="panel-group" id="accordion">                
                                     <?php
-                                    $temas = Tema::temasDelPeriodo($_SESSION['idUsuario'], $_GET['periodo']);
+                                    $temas = Tema::temasDelPeriodoEstudiante($_GET['periodo']);
 
                                     foreach ($temas as $tema) {
                                        /* echo '<div class="group">';
@@ -342,24 +343,53 @@
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#'.$tema["idTema"].'">'.$tema["titulo"].'</a>
-                                                &nbsp;&nbsp; 
-                                        <a class="eliminar" href="../../../Controladores/controladorDeTemas.php?action=delete&idTema=' . $tema["idTema"] . '&periodo=' . $_GET["periodo"] . '">
-                                            <img style="width:20px; height:20px" src="../../Imagenes/delete.ico" />
-                                        </a>
-                                        <a  class="actualizar" href="../../../Controladores/controladorDeTemas.php?action=actualizar&idTema='.$tema["idTema"].'&periodo='.$_GET["periodo"] . '">
-                                             <img style="width:20px; height:20px" src="../../Imagenes/update.ico" />
-                                        </a>
+                                                
+                                        
+                                        
                                         </h4>
                                     </div>
 
                                     <div id="'.$tema["idTema"].'" class="panel-collapse collapse in">
-                                        <div class="panel-body">
-                                      
-                                        '.$tema["contenido"].'
-                                        
-                                        </div>
+                                        <div class="panel-body"> <div><h3> Archivos </h3>';
+                                            // tabla inicio
+                                                echo ' <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th> Nombre
+                                            
+                                            </th>
+                                  
+                                        </tr>
+                                    </thead>
+                                    <tbody>' ;
+                                                $archivos = Archivo::getArchivosDeTema($tema['idTema']);
+                                                        
+                                                foreach ($archivos as $archivo) {
+                                                    echo "<tr>";
+                                                        echo "<td>";
+                                                        echo '<a href="../../../Archivos/'.$archivo['idArchivo'].'.'.$archivo['extencion'].'">'.$archivo['nombre'].'</a>';
+                                                        echo "</td>";
+                                                        
+
+                                                echo "</tr>";
+
+                                                }
+                                                 echo "</tbody>";
+                                                  echo "</table>";
+                                                   echo "</div>";
+
+                                                  
+
+                                                echo "<br>";
+
+                                                echo "<div><h3> Contenido </h3>";
+                                                echo $tema['contenido'];
+                                                echo "</div>";
+                                  echo " </div>
                                     </div>
-                                </div>';
+                                </div>'";     
+                                       
 
                                     }
                                     ?> 
@@ -379,15 +409,7 @@
                                 </div>
                                 --> 
                                     <br>
-<?php
-echo '<form  method="POST" action="../../../Controladores/controladorDeTemas.php?action=crear&periodo=' . $_GET['periodo'] . '">';
-?>
-
-                                    <input class="form-control" type="text" name="titulo" id="titulo" required placeholder="Porfavor esbriba aqui un titulo">
-                                    <br>  
-                                    <textarea name="contenido" id="contenido" style="width: 100%;"></textarea>  <br>    
-                                    <button class="btn btn-default" type="submit">Agregar Tema</button>
-                                    </form>        
+   
 
 
 

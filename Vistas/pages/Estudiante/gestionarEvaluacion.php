@@ -2,7 +2,23 @@
 <?php include_once '../../../Modelos/Tema.php'; ?>
 <?php include_once '../../../Modelos/Pregunta.php'; ?>
 <?php include_once '../../../Modelos/Respuesta.php'; ?>
+<?php include_once '../../../Modelos/Calificacion.php'; ?>
+
 <?php include_once 'menuDocente.php'; ?>
+<?php 
+
+$_SESSION['periodo']=$_GET['periodo'];
+$presento = false;
+$calificacion = Calificacion::comrobarCalificacion($_SESSION['periodo'],$_SESSION['idUsuario']);
+        if($calificacion ==null || $calificacion==false){
+          $presento= false;
+        }else{
+          $presento =true;
+        }
+
+                        
+
+ ?>
 <html lang="es">
 
     <head>
@@ -283,7 +299,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Gestion de evaluacion periodo <?php echo $_GET['periodo']; ?></h1>
+                        <h1 class="page-header">Realizar evaluacion periodo <?php echo $_GET['periodo']; ?></h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -294,7 +310,10 @@
                             <div class="panel-body">
                                 <!-- inicio de preguntas -->
                                 
-                                
+                                 <?php 
+
+                                    echo '<form  method="POST" action="../../../Controladores/controladorDeCalificaciones.php?action=crear&periodo='.$_GET['periodo'].'">';
+                                   ?>        
                                 <div id="accordion">
                                 <!--  
                                     <div class="group">
@@ -310,67 +329,58 @@
                                     
                                 <?php
                         
-                                $preguntas = Pregunta::preguntasPeriodo($_SESSION['idUsuario'], $_GET['periodo']);
-                                
+                                $preguntas = Pregunta::preguntasPeriodoEstudiante($_GET['periodo']);
+                                $pregun=0;
                                 foreach ($preguntas as $pregunta){
+                                    $pregun++;
                                     echo '<div class="group">';
 
-
-                                    if($pregunta['idPregunta']==2){
-                                        echo '<h3  id="'.$pregunta['idPregunta'].'" ><strong id="'.$pregunta['idPregunta'].'">'.$pregunta['descripcion'].' </strong> &nbsp;&nbsp; <a class="eliminar" href="../../../Controladores/controladorDePreguntas.php?action=delete&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a  class="actualizar" href="../../../Controladores/controladorDePreguntas.php?action=actualizar&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
-                                       
-                                    }else{
-                                        echo '<h3 id="'.$pregunta['idPregunta'].'"><strong id="'.$pregunta['idPregunta'].'">'.$pregunta['descripcion'].'</strong> &nbsp;&nbsp; <a class="eliminar" href="../../../Controladores/controladorDePreguntas.php?action=delete&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a  class="actualizar" href="../../../Controladores/controladorDePreguntas.php?action=actualizar&idPregunta='.$pregunta["idPregunta"].'&periodo='.$_GET['periodo'].'"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
-                                       
-                                    }
+                                            echo '<h3  id="'.$pregunta['idPregunta'].'" ><strong id="'.$pregunta['idPregunta'].'">'.$pregunta['descripcion'].' </strong> ';
+                             
+                                   
                                                  echo "</h3>";
                                             echo '<div >';
                                             
                                             $respuestas = Respuesta::respuestasPregunta($pregunta['idPregunta']);
-                                            echo '<table border =1>';
+                                            echo '<table    >';
+                                            $indice =0;
                                             foreach ($respuestas as $respuesta){
                                               
                                                 echo '<tr>';
-                                                
-                                                if($respuesta['estado']=="incorrecta"){
-                                                    echo '<td style="width: 96.8%" >';
+                                                    
+                                                if($indice!=0){
+                                                    echo '<td >';
                                                     echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$pregunta['idPregunta'].'" value="'.$respuesta['idRespuesta'].'"><a > '.$respuesta['respuesta'].'</a><br>';
                                                    
                                                 }else{
-                                                    echo '<td style="width: 96.8%">';
+                                                    echo '<td ">';
                                                      echo ' <input class="radios" type="radio" id="radio'.$respuesta['idRespuesta'].'" name="'.$pregunta['idPregunta'].'" value="'.$respuesta['idRespuesta'].'" checked="true"><a > '.$respuesta['respuesta'].'</a><br>';
                                                      
                                                      
                                                      }
 
-                                                 echo '</td >';
-                                                    echo '<td><a class="eliminar" a href="../../../Controladores/controladorDeRespuestas.php?periodo='.$_GET['periodo'].'&action=delete&idRespuesta='.$respuesta["idRespuesta"].'"><img style="width:20px; height:20px" src="../../Imagenes/delete.ico" /></a><a  class="actualizar" href="../../../Controladores/controladorDeRespuestas.php?periodo='.$_GET['periodo'].'&action=actualizar&idRespuesta='.$respuesta["idRespuesta"].'"><img style="width:20px; height:20px" src="../../Imagenes/update.ico" /></a>';
-                                                    echo '</td>';     
-                                             
-                                                echo '</tr>';
-                                                
+                                                 
+                                                        
+                                                echo '</td></tr>';
+                                            $indice ++;    
                                             }
                                           echo '</table>';  
                                             
-                                            echo '<br>';
-                                            echo '<form  method="POST" action="../../../Controladores/controladorDeRespuestas.php?pregunta='.$pregunta['idPregunta'].'&action=crear&periodo='.$_GET['periodo'].'">';
-                                                echo '<input  type="text" name="respuesta" required id="respuesta" placeholder="Escriba aqui su nueva respuesta" class="form-control"><br> <br>';
-                                                echo ' <button class="btn btn-default" type="submit">Agregar respuesta</button>';
-                                            echo ' </form> ';
+                                         
                                        echo '</div>';
                                     echo '</div>';
+                                }
+                                if($pregun ==0){
+                                    $presento = true;
                                 }
                                 
                                 ?>   
                                
                                    <br>
-                                   <?php 
-
-                                    echo '<form  method="POST" action="../../../Controladores/controladorDePreguntas.php?action=crear&periodo='.$_GET['periodo'].'">';
-                                   ?>
+                          
                              
-                                     <input class="form-control" type="text" name="descripcion" id="descripcion" required placeholder="Escriba aqui su nueva pregunta">
-                                     <br>  <button class="btn btn-default" type="submit">Agregar pregunta</button>
+                                  
+                                     <br>  <button <?php if($presento==true){echo "disabled";} ?> class="btn btn-default" type="submit"><?php if($presento==true){echo "Imposible realizar";}else{echo "Enviar";} ?> </button>
                                    </form>        
 
 
@@ -421,47 +431,7 @@
             });    
 
         </script>
-  <script >
-            $(".actualizar").click(function(){
-
-                var respuesta = prompt("Porfavor ingrese la actualizacion");
-                if( respuesta==null){
-             
-                        
-                       // window.location.href = $(this).attr("href");
-                }else if(respuesta==""){
-                        
-                }else{
-                        //console.log( $(this).attr("href")+"&texto="+respuesta);
-                       window.location.href = $(this).attr("href")+"&texto="+respuesta;
-                }
-               return false;
-
-            });    
-
-        </script>
-
-
-        <script>
-        
-        $(".radios").click(function (){
-          // console.log($(this).attr("name"));
-           //console.log($(this).attr("value"));
-           var datosFormulario ={idPregunta:$(this).attr("name"),idRespuesta:$(this).attr("value")} ;
-           
-           $.post("../../../Controladores/controladorDePreguntas.php?action=camviarEstado",datosFormulario,prosesarDatos);
-           
-           
-        });
-
-
-
-
-       function prosesarDatos(datos){
-          
-       }
-        
-        </script>
+ 
 
     </body>
 

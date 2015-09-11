@@ -110,9 +110,9 @@ class Respuesta extends db_abstract_class {
         
     }
     public static function buscarForId($id) {
-        $usuario = new Usuario();
+        $Pregunta = new Pregunta();
         
-       $array = $usuario->getRow("SELECT * FROM Temas where idTema=?", array($id));
+       $array = $Pregunta->getRow("SELECT * FROM Respuestas where idRespuesta=?", array($id));
         
         return $array ;
         

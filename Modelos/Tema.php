@@ -144,5 +144,12 @@ class Tema extends db_abstract_class {
         
         
     }
+     public static function temasDelPeriodoEstudiante($periodo){
+        $tema = new Tema();
+      $temas=  $tema->getRows("SELECT * FROM Temas where  periodo=? and estado=? ", array($periodo,"Activo"));
+      return $temas;
+        
+        
+    }
 
 }

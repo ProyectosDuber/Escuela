@@ -1,12 +1,12 @@
 <?php
 
 require_once (__DIR__.'/db_abstract_class.php');
-class Pregunta extends db_abstract_class {
+class Calificacion extends db_abstract_class {
     
-    private $idPregunta;
+    private $idCalificacion;
     private $periodo;
-    private $descripcion;
-    private $usuario;
+    private $estudiante;
+    private $calificacion;
    
     
     function __construct($datos = array()) {
@@ -82,11 +82,11 @@ class Pregunta extends db_abstract_class {
     }
 
     public function insertar() {
-             $query = "INSERT INTO Preguntas VALUES('NULL',?,?,?)";
+             $query = "INSERT INTO CalificacionES VALUES('NULL',?,?,?)";
        $params = array(
        $this->periodo,
-       $this->descripcion,
-       $this->usuario
+       $this->estudiante,
+       $this->calificacion
       
        );
         
@@ -106,9 +106,17 @@ class Pregunta extends db_abstract_class {
         
     }
     public static function buscarForId($id) {
-        $Pregunta = new Pregunta();
+        $usuario = new Usuario();
         
-       $array = $Pregunta->getRow("SELECT * FROM Preguntas where idPregunta=?", array($id));
+       $array = $usuario->getRow("SELECT * FROM Temas where idTema=?", array($id));
+        
+        return $array ;
+        
+    }
+     public static function comrobarCalificacion($periodo,$estudiante) {
+        $Calificacion = new Calificacion();
+        
+       $array = $Calificacion->getRow("SELECT * FROM Calificaciones where estudiante=? and periodo=?", array($estudiante,$periodo));
         
         return $array ;
         
@@ -125,6 +133,7 @@ class Pregunta extends db_abstract_class {
         
         
     }
+   
 
     public static function preguntasPeriodoEstudiante($periodo){
         $pregunta = new Pregunta();
