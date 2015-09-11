@@ -316,7 +316,8 @@
                                             '<td>'.$estudiante['username'].'</td>'.
                                             '<td>'.$estudiante['password'].'</td>';
                                             echo '                 <td>
-                        
+                           <a class="calificaciones" id="'.$estudiante['idUsuario'].'" href="#"> <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-list"></i>
+                            </button></a>
                             <a href="editarEstudiante.php?idUsuario='.$estudiante['idUsuario'].'">  <button type="button" class="btn btn-success btn-circle"><i class="fa fa-link"></i>
                             </button></a>
                             <a class="eliminar" href="../../../Controladores/controladorDeUsuario.php?action=eliminar&idUsuario='.$estudiante['idUsuario'].'">   <button type="button" class="btn btn-warning btn-circle"><i class="fa fa-times"></i>
@@ -375,7 +376,38 @@
 
             });    
 
-        </script>
+        </script>  
+    <script type="text/javascript">
+    $(".calificaciones").click(function(){
+
+        var datosFormulario={idUsuario: $(this).attr("id")};
+
+        $.getJSON("../../../Controladores/controladorDeCalificaciones.php?action=listar",datosFormulario,procesar);
+
+
+
+    });
+    function  procesar (datos){
+
+            var presentar= "";
+            var indice =0;
+            var iteraciones=0;
+            $(datos).each(function (index,datos){
+                iteraciones++;
+                indice=index;
+                var periodo = index +1;
+                presentar +='periodo '+periodo+' : '+datos.calificacion+'\n'; 
+
+
+            });
+            for(var x=iteraciones+1;x<=4;x++){
+                  presentar +='periodo '+x+' : no presentada\n'; 
+            }
+
+            alert(presentar);
+    }
+
+    </script>
 
 </body>
 

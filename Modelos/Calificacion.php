@@ -120,7 +120,15 @@ class Calificacion extends db_abstract_class {
         
         return $array ;
         
-    }
+      }
+       public static function listar($estudiante) {
+        $Calificacion = new Calificacion();
+        
+       $array = $Calificacion->getRows("SELECT * FROM Calificaciones where estudiante=? ", array($estudiante));
+        
+        return $array ;
+        
+      }
 
     public static function getAll() {
         

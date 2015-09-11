@@ -16,13 +16,32 @@ class preguntas_controller{
                     preguntas_controller::editar();
 		}else if ($action == "delete"){
 			preguntas_controller::delete();
-		}else if($action == "buscar"){
-                    preguntas_controller::buscar();
+		}else if($action == "listar"){
+                    preguntas_controller::listar();
                 }else if($action == "camviarEstado"){
                     preguntas_controller::camviarEstado();
                 }
 	}
 
+public static function listar(){
+
+      try {
+      
+        $calificacion = Calificacion::listar($_GET['idUsuario']);
+        
+       echo json_encode($calificacion);
+
+
+
+
+
+
+      } catch (Exception $e) {
+        $array = array("mal");
+         echo json_encode($array);
+
+      }
+  }
 	public static function comprobar(){
 
       try {
