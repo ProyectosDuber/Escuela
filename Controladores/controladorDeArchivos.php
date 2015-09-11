@@ -21,6 +21,7 @@ class archivos_controller{
     }else if($action == "camviarEstado"){
                     archivos_controller::camviarEstado();
     }
+
 	}
 	
 	static public function crear (){
@@ -98,7 +99,7 @@ class archivos_controller{
 
 
 	public static  function delete(){
-		try {
+	/*	try {
 			$Tema = new Tema(array('idTema'=>$_GET['idTema']));  
 			
     		$Tema->eliminar();
@@ -107,7 +108,19 @@ class archivos_controller{
 		} catch (Exception $e) {
 		header("Location: ../Vistas/pages/Docente/gestionarTemas.php?respuesta=error&periodo=".$_GET['periodo']);
 		}
-    		
+    */
+    	
+
+   if( unlink('../Archivos/'.$_GET['idArchivo'].'.'.$_GET['extencion'])){
+    $archivo = new Archivo(array('idArchivo'=>$_GET['idArchivo']));
+    $archivo->eliminar();
+ header("Location: ../Vistas/pages/Docente/gestionarTemas.php?respuesta=Eliminado&periodo=".$_GET['periodo']);
+    echo "eliminado";
+   }else{
+     header("Location: ../Vistas/pages/Docente/gestionarTemas.php?respuesta=Error&periodo=".$_GET['periodo']);
+    echo "Fallo";
+   }
+
     } 
 	static public function camviarEstado (){
 		try {

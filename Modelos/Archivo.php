@@ -74,7 +74,7 @@ class Archivo extends db_abstract_class {
     }
 
     public function eliminar() {
-        $this->updateRow("UPDATE Temas SET estado=? where idTema=?",array("Eliminado",$this->idTema));  
+        $this->updateRow("UPDATE Archivos SET estado=? where idArchivo=?",array("Eliminado",$this->idArchivo));  
     }
 
     public function insertar() {

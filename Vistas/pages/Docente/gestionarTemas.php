@@ -378,7 +378,7 @@
                                                         echo '<a href="../../../Archivos/'.$archivo['idArchivo'].'.'.$archivo['extencion'].'">'.$archivo['nombre'].'</a>';
                                                         echo "</td>";
                                                         echo "<td>";
-                                                        echo '<a href="../../../Archivos/'.$archivo['idArchivo'].'.'.$archivo['extencion'].'">Eliminar </a>';
+                                                        echo '<a href="../../../Controladores/controladorDeArchivos.php?action=delete&idArchivo='.$archivo['idArchivo'].'&extencion='.$archivo['extencion'].'&periodo='.$_GET['periodo'].'">Eliminar</a>';
                                                         echo "</td>";
 
                                                 echo "</tr>";
