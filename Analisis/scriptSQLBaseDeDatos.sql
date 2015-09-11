@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS `escuela`.`Archivos` (
   `nombre` VARCHAR(45) NULL,
   `tema` INT NOT NULL,
   `extencion` VARCHAR(45) NULL,
+  `estado` ENUM('Activo', 'Eliminado') NULL,
   PRIMARY KEY (`idArchivo`),
   INDEX `fk_Archivos_Temas1_idx` (`tema` ASC),
   CONSTRAINT `fk_Archivos_Temas1`
@@ -136,7 +137,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `escuela`.`Calificaciones` (
   `idCalificacion` INT NOT NULL AUTO_INCREMENT,
-  `perido` INT NULL,
+  `periodo` INT NULL,
   `estudiante` INT NOT NULL,
   `calificacion` INT NULL,
   PRIMARY KEY (`idCalificacion`),
