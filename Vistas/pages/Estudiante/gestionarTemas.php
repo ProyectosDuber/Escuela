@@ -2,7 +2,6 @@
 <?php include_once '../../../Modelos/Tema.php'; ?>
 <?php include_once '../../../Modelos/Pregunta.php'; ?>
 <?php include_once '../../../Modelos/Respuesta.php'; ?>
-<?php include_once '../../../Modelos/Archivo.php'; ?>
 <?php include_once 'menuDocente.php'; ?>
 <html lang="es">
 
@@ -354,34 +353,13 @@
                                     </div>
 
                                     <div id="'.$tema["idTema"].'" class="panel-collapse collapse in">
-                                        <div class="panel-body"> <div><h3> Archivos </h3>';
-                                            
-                                                echo "<ul>" ;
-                                                $archivos = Archivo::getArchivosDeTema($tema['idTema']);
-
-                                                foreach ($archivos as $archivo) {
-                                                        echo "<li>";
-                                                        echo '<a href="../../../Archivos/'.$archivo['idArchivo'].$archivo['extencion'].'">'.$archivo['nombre'].'</a><br>';
-                                                echo "</li>";
-                                                }
-                                                     echo "<li> <form method='POST' action='../../../Controladores/controladorDeArchivos.php?action=actualizar'>";
-                                                        echo '<div class="form-group">
-                                                        <label>Subir Archivo</label><br>
-                                                         <input required type="file"><br>
-                                                         <button  type="submit" class="btn btn-primary btn-lg btn-block">Subir archivo</button>
-                                                     </div></form>';
-                                                
-                                                echo "</li>";
-
-                                                echo "</ul></div><br>";
-
-                                                echo "<div><h3> Contenido </h3>";
-                                                echo $tema['contenido'];
-                                                echo "</div>";
-                                  echo " </div>
+                                        <div class="panel-body">
+                                      
+                                        '.$tema["contenido"].'
+                                        
+                                        </div>
                                     </div>
-                                </div>'";     
-                                       
+                                </div>';
 
                                     }
                                     ?> 

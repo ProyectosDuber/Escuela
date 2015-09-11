@@ -1,6 +1,11 @@
 <?php session_start(); ?>
-<?php include_once 'menuDocente.php'; ?>
+<?php include_once '../../../Modelos/Tema.php'; ?>
 <?php include_once '../../../Modelos/Usuario.php'; ?>
+<?php include_once 'menuDocente.php'; ?>
+<?php 
+$usuario = Usuario::buscarForId($_GET['idUsuario']);
+
+?>
 <html lang="es">
 
 <head>
@@ -11,7 +16,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Estudiantes</title>
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -252,17 +257,17 @@
             </ul>
             <!-- /.navbar-top-links -->
             <!-- inicio menu -->
-            <br>
-<?php menu();  ?>
-<!-- Fin menu -->
-<!-- /.navbar-static-side -->
+              
+                <?php menu();  ?>
+                <!-- Fin menu -->
+            <!-- /.navbar-static-side -->
         </nav>
 
         <!-- Page Content -->
         <div id="page-wrapper">
-             <div class="row">
+            <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Estudiantes</h1>
+                    <h1 class="page-header">Estudiante</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -270,86 +275,70 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-body">
-                            
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th> Nombres
-                                            
-                                            </th>
-                                            <th> Apellidos  
-                                               
-                                            </th>
-                                            <th>
-                                               Documento
-                                               
-                                            </th>
-                                            <th>
-                                               Sexo
-                                                
-                                            </th>
-                                            <th>
-                                                Usuario
-                                                
-                                            </th>
-                                            <th>
-                                                Contraceña
-                                                
-                                            </th>
-                                            <th>
-                                                Acciones
-                                                
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php 
-                                    $estudiantes = Usuario::getTodos($_SESSION['tipo']);
-                                    foreach ($estudiantes as $estudiante){
-                                        echo "<tr>";
-                                            echo '<td>'.$estudiante['nombres'].'</td>'.
-                                            '<td>'.$estudiante['apellidos'].'</td>'.
-                                            '<td>'.$estudiante['documento'].'</td>'.
-                                            '<td>'.$estudiante['sexo'].'</td>'.
-                                            '<td>'.$estudiante['username'].'</td>'.
-                                            '<td>'.$estudiante['password'].'</td>';
-                                            echo '                 <td>
-                        
-                            <a href="editarEstudiante.php?idUsuario='.$estudiante['idUsuario'].'">  <button type="button" class="btn btn-success btn-circle"><i class="fa fa-link"></i>
-                            </button></a>
-                            <a class="eliminar" href="../../../Controladores/controladorDeUsuario.php?action=eliminar&idUsuario='.$estudiante['idUsuario'].'">   <button type="button" class="btn btn-warning btn-circle"><i class="fa fa-times"></i>
-                            </button></a>
-
-                                            </td>';
-                                        echo "</tr>";
-                                    }
-                                    ?>
-                                       
-                                            </td>
-                                           
-                                        </tr>
-                                        
-                                    </tbody>
-                                </table>
-                               <a href="agregarEstudiante.php">  <button type="button" class="btn btn-success">Agregar estudiante</button></a>
-                            </div>
-                            
+                        <div class="panel-heading">
+                            Edicion
                         </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <?php echo '<form method="POST" role="form" action="../../../Controladores/controladorDeUsuario.php?action=editar&idUsuario='.$_GET['idUsuario'].'">'; ?>
+                                  
+                                        <div class="form-group">
+                                           
+                                            <input name="nombres" class="form-control" placeholder="Nombres" value="<?php echo $usuario['nombres']; ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            
+                                            <input name="apellidos" class="form-control" placeholder="Apellidos" value="<?php echo $usuario['apellidos']; ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            
+                                            <input name="documento" type="number" min="0" class="form-control" placeholder="Documento" value="<?php echo $usuario['documento']; ?>">
+                                        </div>
+                                       
+                                       
+                                        <div class="form-group">
+                                                
+                                            <select name="sexo" id="sexo" class="form-control">
+                                                
+                                                <?php 
+                                                if($usuario['sexo']=="Masculino"){
+                                                    echo '<option selected="true"  value="Masculino">Masculino</option>
+                                                <option  value="Femenino">Femenino</option>';
+                                                }else{
+                                                   echo '<option   value="Masculino">Masculino</option>
+                                                <option selected="true" value="Femenino">Femenino</option>'; 
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                      
+                                        <button type="submit" class="btn btn-default">Editar</button>
+                                        
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
                     </div>
+                    <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-      </div>
+        </div>
+       
         <!-- /#page-wrapper -->
 
-</div>
+    </div>
     <!-- /#wrapper -->
 
   
-     <script src="../../js/logOut.js"></script>
+    <script src="../../js/logOut.js"></script>
     <!-- jQuery -->
     <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -361,35 +350,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../../dist/js/sb-admin-2.js"></script>
-    <script >
-            $(".eliminar").click(function(){
-              
-                var respuesta = confirm("Desea eliminar el registro");
-                if( respuesta){
-             
-                        window.location.href = $(this).attr("href");
-                }else{
- 
-                }
-               return false;
-
-            });    
-
-        </script>
 
 </body>
 
 </html>
-<?php 
-
-if(isset($_SESSION['respuesta'])){
-    if($_SESSION['respuesta']=="correcto"){
-       // echo "<script> alert('Mensaje enviado con satisfaccion !!') </script>";
-    }else{
-  echo "<script> alert('Error al eliminar el estudiante porfavor intentelo mas tarde !!') </script>";
-    }
-$_SESSION['respuesta'] = null;
-
-}
-
-?>

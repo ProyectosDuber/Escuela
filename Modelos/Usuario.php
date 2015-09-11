@@ -10,6 +10,7 @@ class Usuario extends db_abstract_class {
     private $nombres;
     private $apellidos;
     private $documento;
+    private $sexo;
     
     function __construct($datos = array()) {
         parent::__construct();
@@ -87,15 +88,24 @@ class Usuario extends db_abstract_class {
         $this->documento = $documento;
     }
 
-    
+    function getSexo() {
+        return $this->sexo;
+    }
 
+    function setSexo($sexo) {
+        $this->sexo = $sexo;
+    }
+
+    
             
     
-    protected function editar() {
-        $query = "UPDATE Usuarios SET username=?,password=? where idUsuario=?";
+    public function editar() {
+        $query = "UPDATE Usuarios SET nombres=?,apellidos=?,documento=?,sexo=? where idUsuario=?";
        $params = array(
-       $this->username,
-       $this->password,
+       $this->nombres,
+       $this->apellidos,
+       $this->documento,
+       $this->sexo,
        $this->idUsuario    
        );
         
@@ -103,15 +113,23 @@ class Usuario extends db_abstract_class {
             $this->Disconnect();
     }
 
-    protected function eliminar() {
+    public function eliminar() {
         
+        $this->updateRow("UPDATE Usuarios SET estado=? where idUsuario=?",array("Eliminado",$this->idUsuario));
+
     }
 
     public function insertar() {
-             $query = "INSERT INTO Usuarios VALUES('NULL',?,?)";
+             $query = "INSERT INTO Usuarios VALUES('NULL',?,?,?,?,?,?,?,?)";
        $params = array(
        $this->username,
-       $this->password
+       $this->password,
+       $this->tipo,
+       $this->nombres,
+       $this->apellidos,
+       $this->documento,
+       $this->sexo,
+       "Activo"
       
        );
         
@@ -134,14 +152,38 @@ class Usuario extends db_abstract_class {
         return $array ;
         
     }
-    public static function getTodosLosEstudiantes(){
+
+    public static function buscarForDocumento($documento) {
+        $usuario = new Usuario();
+        
+       $array = $usuario->getRow("SELECT * FROM Usuarios where documento=? and estado=?", array($documento,"Activo"));
+        
+        return $array ;
+        
+    }
+    public static function getTodos($tipo){
+
+        if($tipo=="Docente"){
+            $tipo="Estudiante";
+        }else{
+            $tipo="Docente";
+        }
+
         $Estudiante = new Usuario();
-        $estudiantes = $Estudiante->getRows("SELECT * FROM Usuarios where tipo=? and estado=?",array("Estudiante","Activo"));   
+        $estudiantes = $Estudiante->getRows("SELECT * FROM Usuarios where tipo=? and estado=?",array($tipo,"Activo"));   
         return $estudiantes; 
     }
-     public static function buscarEstudiates($busqueda){
+
+
+     public static function buscarEstudiates($busqueda,$tipo){
+        if($tipo=="Docente"){
+            $tipo="Estudiante";
+        }else{
+            $tipo="Docente";
+        }
+
         $Estudiante = new Usuario();
-        $estudiantes = $Estudiante->getRows("SELECT * FROM Usuarios where (nombres like ? or documento like ? or apellidos like ?) and (tipo=?) ",array("%".$busqueda."%","%".$busqueda."%","%".$busqueda."%","Estudiante"));   
+        $estudiantes = $Estudiante->getRows("SELECT * FROM Usuarios where (nombres like ? or documento like ? or apellidos like ?) and (tipo=? and estado=?) ",array("%".$busqueda."%","%".$busqueda."%","%".$busqueda."%",$tipo,'Activo'));   
         return $estudiantes; 
     }
     public static function getAll() {

@@ -1,6 +1,7 @@
 <?php session_start(); ?>
+<?php include_once '../../../Modelos/Tema.php'; ?>
+<?php include_once '../../../Modelos/Mensaje.php'; ?>
 <?php include_once 'menuDocente.php'; ?>
-<?php include_once '../../../Modelos/Usuario.php'; ?>
 <html lang="es">
 
 <head>
@@ -11,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Estudiantes</title>
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -252,104 +253,79 @@
             </ul>
             <!-- /.navbar-top-links -->
             <!-- inicio menu -->
-            <br>
-<?php menu();  ?>
-<!-- Fin menu -->
-<!-- /.navbar-static-side -->
+              
+                <?php menu();  ?>
+                <!-- Fin menu -->
+            <!-- /.navbar-static-side -->
         </nav>
 
         <!-- Page Content -->
-        <div id="page-wrapper">
-             <div class="row">
+  <div id="page-wrapper">
+            <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Estudiantes</h1>
+                    <h1 class="page-header">Mensajes resividos</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
+                
+                <!-- /.col-lg-4 -->
+<!--                <div class="col-lg-4">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            Success Panel
+                        </div>
                         <div class="panel-body">
-                            
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th> Nombres
-                                            
-                                            </th>
-                                            <th> Apellidos  
-                                               
-                                            </th>
-                                            <th>
-                                               Documento
-                                               
-                                            </th>
-                                            <th>
-                                               Sexo
-                                                
-                                            </th>
-                                            <th>
-                                                Usuario
-                                                
-                                            </th>
-                                            <th>
-                                                Contraceña
-                                                
-                                            </th>
-                                            <th>
-                                                Acciones
-                                                
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php 
-                                    $estudiantes = Usuario::getTodos($_SESSION['tipo']);
-                                    foreach ($estudiantes as $estudiante){
-                                        echo "<tr>";
-                                            echo '<td>'.$estudiante['nombres'].'</td>'.
-                                            '<td>'.$estudiante['apellidos'].'</td>'.
-                                            '<td>'.$estudiante['documento'].'</td>'.
-                                            '<td>'.$estudiante['sexo'].'</td>'.
-                                            '<td>'.$estudiante['username'].'</td>'.
-                                            '<td>'.$estudiante['password'].'</td>';
-                                            echo '                 <td>
-                        
-                            <a href="editarEstudiante.php?idUsuario='.$estudiante['idUsuario'].'">  <button type="button" class="btn btn-success btn-circle"><i class="fa fa-link"></i>
-                            </button></a>
-                            <a class="eliminar" href="../../../Controladores/controladorDeUsuario.php?action=eliminar&idUsuario='.$estudiante['idUsuario'].'">   <button type="button" class="btn btn-warning btn-circle"><i class="fa fa-times"></i>
-                            </button></a>
-
-                                            </td>';
-                                        echo "</tr>";
-                                    }
-                                    ?>
-                                       
-                                            </td>
-                                           
-                                        </tr>
-                                        
-                                    </tbody>
-                                </table>
-                               <a href="agregarEstudiante.php">  <button type="button" class="btn btn-success">Agregar estudiante</button></a>
-                            </div>
-                            
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                        </div>
+                        <div class="panel-footer">
+                            Panel Footer
                         </div>
                     </div>
-                </div>
-                <!-- /.col-lg-12 -->
+                </div>-->
+                
+                <?php 
+                $mensajes = Mensaje::getMensajesResividos($_SESSION['idUsuario']);
+                
+                foreach ($mensajes as $mensaje){
+                        echo '<div class="col-lg-4">
+                                  <div class="panel panel-danger">
+                                       <div class="panel-heading">';
+                                                   echo $mensaje['fecha'];
+                                 echo '</div>';
+                                 echo '<div class="panel-body">';
+                                              echo '<p>'.$mensaje['contenido'].'</p>';
+                                 echo '</div>';     
+                                 echo ' <div class="panel-footer">
+                                         Nombres : '.$mensaje['nombres']."<br>Apellidos : ".$mensaje['apellidos']."<br>Documento : ".$mensaje['documento'].'
+                                       </div>
+                                   </div>
+                             </div>';
+                           
+                           
+                           
+                }
+                
+                
+                ?>
+                
+                <!-- /.col-lg-4 -->
             </div>
             <!-- /.row -->
-      </div>
-        <!-- /#page-wrapper -->
+             <!-- /.row -->
+            <!-- /.row -->
+            <!-- /.row -->
+            <!-- /.row -->
+            <!-- /.row -->
+        </div>
+        <!-- final de contenido pagina -->
 
-</div>
+    </div>
     <!-- /#wrapper -->
 
   
-     <script src="../../js/logOut.js"></script>
+    <script src="../../js/logOut.js"></script>
     <!-- jQuery -->
     <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -361,35 +337,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../../dist/js/sb-admin-2.js"></script>
-    <script >
-            $(".eliminar").click(function(){
-              
-                var respuesta = confirm("Desea eliminar el registro");
-                if( respuesta){
-             
-                        window.location.href = $(this).attr("href");
-                }else{
- 
-                }
-               return false;
-
-            });    
-
-        </script>
 
 </body>
 
 </html>
-<?php 
-
-if(isset($_SESSION['respuesta'])){
-    if($_SESSION['respuesta']=="correcto"){
-       // echo "<script> alert('Mensaje enviado con satisfaccion !!') </script>";
-    }else{
-  echo "<script> alert('Error al eliminar el estudiante porfavor intentelo mas tarde !!') </script>";
-    }
-$_SESSION['respuesta'] = null;
-
-}
-
-?>

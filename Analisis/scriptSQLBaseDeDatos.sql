@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `escuela`.`Temas` (
   `idTema` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `periodo` INT NULL COMMENT '',
   `titulo` VARCHAR(45) NULL COMMENT '',
-  `contenido` TEXT NULL COMMENT '',
+  `contenido` VARCHAR(45) NULL COMMENT '',
   `usuario` INT NOT NULL COMMENT '',
   `estado` ENUM('Eliminado', 'Activo') NULL COMMENT '',
   PRIMARY KEY (`idTema`)  COMMENT '',

@@ -19,35 +19,67 @@ class usuarios_controller{
                     usuarios_controller::IniciarSesion();
         }else if($action == "busqueda"){
                     usuarios_controller::busqueda();
+        }else if($action == "eliminar"){
+                    usuarios_controller::eliminar();
         }
 	}
-	
+	public static function eliminar(){
+		
+            try {
+				session_start();
+				$datos = array();
+                                
+				$datos['idUsuario']=$_GET['idUsuario'];
+				$usuario = new Usuario($datos);
+				$usuario->eliminar();
+				$_SESSION['respuesta']= "correcto";
+
+ header("Location: ../Vistas/pages/Docente/ListarEstudiantes.php?respuesta=creado");
+			} catch (Exception $e) {
+				$_SESSION['respuesta']="error";
+				 header("Location: ../Vistas/pages/Docente/ListarEstudiantes.php?respuesta=error");
+			}
+	}
 	static public function crear (){
-            echo 'bien';
-//		try {
-//			$arrayUser = array();
-//			$arrayUser['cedula'] = $_POST['cedula'];
-//			$arrayUser['nombres'] = $_POST['nombres'];
-//			$arrayUser['apellidos'] = $_POST['apellidos'];
-//                        $arrayUser['sexo'] = $_POST['sexo'];
-//			$arrayUser['fechaDeNacimiento'] = $_POST['fechaDeNacimiento'];
-//                        $arrayUser['telefono'] = $_POST['telefono'];
-//                        $arrayUser['email'] = $_POST['email'];
-//                        $arrayUser['direccion'] = $_POST['direccion'];
-//			
-//			$usuario = new usuarios ($arrayUser);
-//			$usuario->insertar();
-//			header("Location: ../frmNewUser.php?respuesta=correcto");
-//		} catch (Exception $e) {
-//			header("Location: ../frmNewUser.php?respuesta=error");
-//		}
+          try {
+          	$datos = array();
+          	$datos['username']=$_POST['documento'];
+          	$datos['password']=$_POST['documento'];
+          	$datos['tipo']="Estudiante";
+          	$datos['nombres']=$_POST['nombres'];
+          	$datos['apellidos']=$_POST['apellidos'];
+          	$datos['documento']=$_POST['documento'];
+          	$datos['sexo']=$_POST['sexo'];
+          	$usuario = new Usuario($datos);
+          	$comprobacion = $usuario->buscarForDocumento($_POST["documento"]) ;
+          	if( $comprobacion ==null || $comprobacion==false ){
+          		
+				$usuario->insertar();
+          	
+          		echo "creado";
+          		
+          	}else{
+				echo "duplicado";
+          	}	
+
+
+          	
+
+
+
+          } catch (Exception $e) {
+          	
+          	echo "error";
+          	
+          }
+
 	}
 	public static function busqueda(){
 
 		try {
 			$usuario = new Usuario();
 
-			$Estudiantes = $usuario->buscarEstudiates($_GET['busqueda']);
+			$Estudiantes = $usuario->buscarEstudiates($_GET['busqueda'],$_GET['tipo']);
 			echo json_encode($Estudiantes);
 
 		} catch (Exception $e) {
@@ -68,22 +100,25 @@ class usuarios_controller{
 
 	static public function editar (){
 		try {
+
+			$datos = array();
+			$datos['idUsuario']=$_GET['idUsuario'];
+			$datos['nombres']=$_POST['nombres'];
+			$datos['apellidos']=$_POST['apellidos'];
+			$datos['documento']= $_POST['documento'];
+			$datos['sexo'] = $_POST['sexo'];
+
+			$usuario = new Usuario($datos);
 			
-			$arrayUser = array();
-			$arrayUser['cedula'] = $_POST['cedula'];
-			$arrayUser['nombres'] = $_POST['nombres'];
-			$arrayUser['apellidos'] = $_POST['apellidos'];
-                        $arrayUser['sexo'] = $_POST['sexo'];
-			$arrayUser['fechaDeNacimiento'] = $_POST['fechaDeNacimiento'];
-                        $arrayUser['telefono'] = $_POST['telefono'];
-                        $arrayUser['email'] = $_POST['email'];
-                        $arrayUser['direccion'] = $_POST['direccion'];
-			
-			$usuario = new Usuario ($arrayUser);
 			$usuario->editar();
-			header("Location: ../frmNewUser.php?respuesta=correcto");
+			$_SESSION['respuesta']= "correcto";
+
+ header("Location: ../Vistas/pages/Docente/ListarEstudiantes.php?respuesta=correcto");
+			
 		} catch (Exception $e) {
-			header("Location: ../frmNewUser.php?respuesta=error");
+			$_SESSION['respuesta']= "error";
+
+ header("Location: ../Vistas/pages/Docente/ListarEstudiantes.php?respuesta=error");
 		}
 	}
 	

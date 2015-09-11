@@ -333,7 +333,7 @@
                                         
                                     </tbody>
                                 </table>
-                               <a href="agregarEstudiante.php">  <button type="button" class="btn btn-success">Agregar estudiante</button></a>
+                                 <button type="button" class="btn btn-success">Agregar estudiante</button>
                             </div>
                             
                         </div>
