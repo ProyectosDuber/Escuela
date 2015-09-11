@@ -355,25 +355,49 @@
 
                                     <div id="'.$tema["idTema"].'" class="panel-collapse collapse in">
                                         <div class="panel-body"> <div><h3> Archivos </h3>';
+                                            // tabla inicio
+                                                echo ' <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th> Nombre
                                             
-                                                echo "<ul>" ;
+                                            </th>
+                                          
+                                            <th>
+                                                Eliminar
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>' ;
                                                 $archivos = Archivo::getArchivosDeTema($tema['idTema']);
-
+                                                        
                                                 foreach ($archivos as $archivo) {
-                                                        echo "<li>";
-                                                        echo '<a href="../../../Archivos/'.$archivo['idArchivo'].$archivo['extencion'].'">'.$archivo['nombre'].'</a><br>';
-                                                echo "</li>";
+                                                    echo "<tr>";
+                                                        echo "<td>";
+                                                        echo '<a href="../../../Archivos/'.$archivo['idArchivo'].'.'.$archivo['extencion'].'">'.$archivo['nombre'].'</a>';
+                                                        echo "</td>";
+                                                        echo "<td>";
+                                                        echo '<a href="../../../Archivos/'.$archivo['idArchivo'].'.'.$archivo['extencion'].'">Eliminar </a>';
+                                                        echo "</td>";
+
+                                                echo "</tr>";
+
                                                 }
-                                                     echo "<li> <form method='POST' action='../../../Controladores/controladorDeArchivos.php?action=actualizar'>";
+                                                 echo "</tbody>";
+                                                  echo "</table>";
+                                                   echo "</div>";
+
+                                                     echo "<form enctype='multipart/form-data' method='POST' action='../../../Controladores/controladorDeArchivos.php?action=crear&tema=".$tema['idTema']."&periodo=".$_GET['periodo']."'>";
                                                         echo '<div class="form-group">
                                                         <label>Subir Archivo</label><br>
-                                                         <input required type="file"><br>
-                                                         <button  type="submit" class="btn btn-primary btn-lg btn-block">Subir archivo</button>
+                                                         <input id="archivo" name="archivo" required type="file"><br>
+                                                         <button name="Subir" id="Subir" type="submit" class="btn btn-primary btn-lg btn-block">Subir archivo</button>
                                                      </div></form>';
                                                 
-                                                echo "</li>";
+                                                echo "";
 
-                                                echo "</ul></div><br>";
+                                                echo "</div><br>";
 
                                                 echo "<div><h3> Contenido </h3>";
                                                 echo $tema['contenido'];

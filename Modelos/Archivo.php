@@ -6,7 +6,8 @@ class Archivo extends db_abstract_class {
     private $idArchivo;
     private $nombre;
     private $tema;
-    private $extencion;   
+    private $extencion;
+    private $estado;   
     
     function __construct($datos = array()) {
         parent::__construct();
@@ -50,7 +51,16 @@ class Archivo extends db_abstract_class {
     }
 
     
-    
+    public static function getMaxValue(){
+
+        $archivo = new Archivo();
+
+        return $archivo->getRow("select max(idArchivo) as idArchivo from Archivos");
+
+
+
+
+    }
     protected function editar() {
         $query = "UPDATE Usuarios SET username=?,password=? where idUsuario=?";
        $params = array(
@@ -70,24 +80,23 @@ class Archivo extends db_abstract_class {
     public function insertar() {
 
         $this->estado="Activo";
-             $query = "INSERT INTO Mensajes (emisor, reseptor, estado, contenido) VALUES (?, ?, ?, ?)";
+             $query = "INSERT INTO Archivos VALUES('NULL',?,?,?,?)";
        $params = array(
-       $this->emisor,
-       $this->reseptor,
-       
-       $this->estado,
-       $this->contenido
-      
+       $this->nombre,
+       $this->tema,
+       $this->extencion,
+       "Activo"
        );
-        
+          
         parent::insertRow($query, $params);
+
         $this->Disconnect();
     }
     public static function getArchivosDeTema($idTema){
      
         $archivo = new Archivo(array('tema' =>$idTema));
 
-        return  $archivo->getRows("SELECT * FROM Archivos where tema=?",array($archivo->getTema()));
+        return  $archivo->getRows("SELECT * FROM Archivos where tema=? and estado=?",array($archivo->getTema(),"Activo"));
 
     }
 
